@@ -1,7 +1,10 @@
 import React from 'react';
+import Graph from './Graph';
 
-function App() {
-  return <div></div>
+const App = () => {
+  return (
+    <Graph></Graph>
+  )
 }
 
 export default App;
