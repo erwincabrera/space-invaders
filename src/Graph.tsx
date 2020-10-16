@@ -55,6 +55,11 @@ class Graph extends Component<State> {
       try {
         const { x, y } = this.props.pos;
         graph.insertVertex(parent, null, "USS\nEnterprise", x, y, 75, 75);
+
+        this.props.shots.forEach(eachShot => {
+          graph.insertVertex(parent, null, "", eachShot.x, eachShot.y, 10, 10);
+        })
+
       } finally {
         // Updates the display
         graph.getModel().endUpdate();
