@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as GraphModule from "mxgraph/javascript/dist/build";
+import { State } from "./types";
 
 const myGraph = new GraphModule({
   mxImageBasePath: "mxgraph/javascript/src/images",
@@ -12,12 +13,8 @@ const mxClient = myGraph.mxClient;
 const mxUtils = myGraph.mxUtils;
 const mxEvent = myGraph.mxEvent;
 
-interface Props {
-  x: number;
-  y: number
-}
 
-class Graph extends Component<Props> {
+class Graph extends Component<State> {
   constructor(props: any) {
     super(props);
     this.state = {};
@@ -56,7 +53,8 @@ class Graph extends Component<Props> {
 
       graph.getModel().beginUpdate();
       try {
-        graph.insertVertex(parent, null, "USS\nEnterprise", this.props.x, this.props.y, 75, 75);
+        const { x, y } = this.props.pos;
+        graph.insertVertex(parent, null, "USS\nEnterprise", x, y, 75, 75);
       } finally {
         // Updates the display
         graph.getModel().endUpdate();

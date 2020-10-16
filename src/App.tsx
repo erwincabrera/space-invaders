@@ -114,7 +114,7 @@ const App = () => {
 
   return (
     <div>
-      <Graph x={state.pos.x} y={state.pos.y}></Graph>
+      <Graph {...state}></Graph>
     </div>
   )
 }
