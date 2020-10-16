@@ -2,9 +2,11 @@ import React, { useEffect, useReducer } from 'react';
 import Graph from './Graph';
 import { Action, MovePayload, State } from './types';
 
+const TICK_MS = 100;
 const INTERVAL_MS = 50;
 const DX = 20;
 const DY = 20;
+const SHOT_DY = 100;
 
 const initialState: State = {
   pos: {
@@ -32,6 +34,10 @@ const moveRight = (): Action<MovePayload> => ({
 
 const fire = (): Action<any> => ({
   type: 'FIRE', payload: {}
+})
+
+const tick = (): Action<any> => ({
+  type: 'TICK', payload: {}
 })
 
 const KEYS = {
@@ -69,6 +75,13 @@ const reducer = (state: State, action: Action<any>): State => {
         ...state,
         shots: state.shots.concat([{x: state.pos.x, y: state.pos.y}])
       }
+    case 'TICK':
+      return {
+        ...state,
+        shots: state.shots
+          .map(eachShot => ({ ...eachShot, y: eachShot.y - SHOT_DY}))
+          .filter(eachShot => eachShot.y > 0)
+      }
     default:
       return initialState;
   }
@@ -78,6 +91,8 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    const tickId = setInterval(() => dispatch(tick()), TICK_MS);
+
     const movementId = setInterval(() => {
       if (isKeyDown[KEYS.MOVEMENT.UP]) dispatch(moveUp())
       if (isKeyDown[KEYS.MOVEMENT.DOWN]) dispatch(moveDown())
@@ -107,6 +122,7 @@ const App = () => {
     return () => {
       window.removeEventListener('keydown', handleKeydown);
       window.removeEventListener('keyup', handleKeyup);
+      clearInterval(tickId);
       clearInterval(movementId);
       clearInterval(weaponId);
     }
