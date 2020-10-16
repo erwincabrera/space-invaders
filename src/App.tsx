@@ -1,29 +1,10 @@
 import React, { useEffect, useReducer } from 'react';
 import Graph from './Graph';
+import { Action, MovePayload, State } from './types';
 
 const INTERVAL_MS = 50;
 const DX = 20;
 const DY = 20;
-
-interface Position {
-  x: number,
-  y: number
-}
-
-interface Action<T> {
-  type: string;
-  payload: T;
-}
-
-interface MovePayload {
-  dx: number;
-  dy: number;
-}
-
-interface State {
-  pos: Position,
-  shots: Position[]
-}
 
 const initialState: State = {
   pos: {
