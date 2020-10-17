@@ -91,19 +91,6 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    const tickId = setInterval(() => dispatch(tick()), TICK_MS);
-
-    const movementId = setInterval(() => {
-      if (isKeyDown[KEYS.MOVEMENT.UP]) dispatch(moveUp())
-      if (isKeyDown[KEYS.MOVEMENT.DOWN]) dispatch(moveDown())
-      if (isKeyDown[KEYS.MOVEMENT.LEFT]) dispatch(moveLeft())
-      if (isKeyDown[KEYS.MOVEMENT.RIGHT]) dispatch(moveRight())
-    }, INTERVAL_MS)
-
-    const weaponId = setInterval(() => {
-      if (isKeyDown[KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(fire())
-    }, INTERVAL_MS);
-
     const handleKeyup = (e: KeyboardEvent) => {
       if (KEY_LIST.indexOf(e.key) !== -1) {
         isKeyDown[e.key] = false
@@ -122,11 +109,31 @@ const App = () => {
     return () => {
       window.removeEventListener('keydown', handleKeydown);
       window.removeEventListener('keyup', handleKeyup);
-      clearInterval(tickId);
+    }
+  }, [])
+
+  useEffect(() => {
+    const movementId = setInterval(() => {
+      if (isKeyDown[KEYS.MOVEMENT.UP]) dispatch(moveUp())
+      if (isKeyDown[KEYS.MOVEMENT.DOWN]) dispatch(moveDown())
+      if (isKeyDown[KEYS.MOVEMENT.LEFT]) dispatch(moveLeft())
+      if (isKeyDown[KEYS.MOVEMENT.RIGHT]) dispatch(moveRight())
+    }, INTERVAL_MS);
+
+    const weaponId = setInterval(() => {
+      if (isKeyDown[KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(fire())
+    }, INTERVAL_MS);
+
+    return () => {
       clearInterval(movementId);
       clearInterval(weaponId);
     }
   }, [])
+
+  useEffect(() => {
+    const tickId = setInterval(() => dispatch(tick()), TICK_MS);
+    return () => clearInterval(tickId);
+  }, []);
 
   return (
     <div>
