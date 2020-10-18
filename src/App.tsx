@@ -103,6 +103,10 @@ const reducer = (state: State, action: Action<any>): State => {
             }
           }))
           .filter(eachInvader => eachInvader.pos.y < 600)
+          .filter(eachInvader => 
+            state.shots.map(eachShot => eachShot.x).indexOf(eachInvader.pos.x) === -1 &&
+            state.shots.map(eachShot => eachShot.y).indexOf(eachInvader.pos.y) === -1
+          )
       }
     case 'CREATE_INVADER':
       return {
