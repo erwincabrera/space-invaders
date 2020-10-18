@@ -60,6 +60,10 @@ class Graph extends Component<State> {
           graph.insertVertex(parent, null, "", eachShot.x, eachShot.y, 10, 10);
         })
 
+        this.props.invaders.forEach(eachInvader => {
+          graph.insertVertex(parent, null, "", eachInvader.pos.x, eachInvader.pos.y, 20, 20);
+        })
+
       } finally {
         // Updates the display
         graph.getModel().endUpdate();

@@ -1,19 +1,21 @@
 import React, { useEffect, useReducer } from 'react';
 import Graph from './Graph';
-import { Action, MovePayload, State } from './types';
+import { Action, MovePayload, State, Position } from './types';
 
 const TICK_MS = 100;
 const INTERVAL_MS = 50;
 const DX = 20;
 const DY = 20;
 const SHOT_DY = 100;
+const INVADER_DY = 10;
 
 const initialState: State = {
   pos: {
     x: 100,
     y: 100
   },
-  shots: []
+  shots: [],
+  invaders: []
 };
 
 const moveUp = (): Action<MovePayload> => ({
@@ -39,6 +41,17 @@ const fire = (): Action<any> => ({
 const tick = (): Action<any> => ({
   type: 'TICK', payload: {}
 })
+
+const createInvader = (pos: Position): Action<Position> => ({
+  type: 'CREATE_INVADER', payload: pos
+}) 
+
+const getRandomInvaderPosition = (min: number, max: number): Position => {
+  return {
+    x: Math.random() * (max - min) + min,
+    y: 0
+  }
+}
 
 const KEYS = {
   MOVEMENT: {
@@ -80,7 +93,21 @@ const reducer = (state: State, action: Action<any>): State => {
         ...state,
         shots: state.shots
           .map(eachShot => ({ ...eachShot, y: eachShot.y - SHOT_DY}))
-          .filter(eachShot => eachShot.y > 0)
+          .filter(eachShot => eachShot.y > 0),
+        invaders: state.invaders
+          .map(eachInvader => ({
+            ...eachInvader,
+            pos: {
+              ...eachInvader.pos,
+              y: eachInvader.pos.y + INVADER_DY
+            }
+          }))
+          .filter(eachInvader => eachInvader.pos.y < 600)
+      }
+    case 'CREATE_INVADER':
+      return {
+        ...state,
+        invaders: state.invaders.concat([{pos: action.payload}])
       }
     default:
       return initialState;
@@ -131,7 +158,13 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const tickId = setInterval(() => dispatch(tick()), TICK_MS);
+    const tickId = setInterval(() => {
+      dispatch(tick());
+      if (Math.random() < .05) {
+        dispatch(createInvader(getRandomInvaderPosition(0, 1200)))
+      }
+    }, TICK_MS);
+
     return () => clearInterval(tickId);
   }, []);
 
