@@ -13,6 +13,12 @@ export interface Position {
   y: number
 }
 
+export interface Player {
+  pos: Position
+  width: number;
+  height: number;
+}
+
 export interface Invader {
   pos: Position;
   width: number;
@@ -20,7 +26,7 @@ export interface Invader {
 }
 
 export interface State {
-  pos: Position,
+  player: Player,
   shots: Position[],
   invaders: Invader[]
 }

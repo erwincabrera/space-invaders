@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as GraphModule from "mxgraph/javascript/dist/build";
 import { State } from "./types";
+import * as Constants from "./Constants";
 
 const myGraph = new GraphModule({
   mxImageBasePath: "mxgraph/javascript/src/images",
@@ -53,11 +54,11 @@ class Graph extends Component<State> {
 
       graph.getModel().beginUpdate();
       try {
-        const { x, y } = this.props.pos;
-        graph.insertVertex(parent, null, "USS\nEnterprise", x, y, 75, 75);
+        const { pos, width, height } = this.props.player;
+        graph.insertVertex(parent, null, "USS\nEnterprise", pos.x, pos.y, width, height);
 
         this.props.shots.forEach(eachShot => {
-          graph.insertVertex(parent, null, "", eachShot.x, eachShot.y, 10, 10);
+          graph.insertVertex(parent, null, "", eachShot.x, eachShot.y, Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT);
         })
 
         this.props.invaders.forEach(eachInvader => {

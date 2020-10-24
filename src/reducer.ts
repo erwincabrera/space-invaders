@@ -2,9 +2,13 @@ import { Action, MovePayload, State } from "./types"
 import * as Constants from './Constants'
 
 export const initialState: State = {
-  pos: {
-    x: 100,
-    y: 100
+  player: {
+    pos: {
+      x: 100,
+      y: 100
+    },
+    width: 75,
+    height: 75
   },
   shots: [],
   invaders: []
@@ -13,10 +17,12 @@ export const initialState: State = {
 const move = (state: State, action: Action<MovePayload>): State => {
   return {
     ...state,
-    pos: {
-      ...state.pos,
-      x: state.pos.x + action.payload.dx,
-      y: state.pos.y + action.payload.dy
+    player: {
+      ...state.player,
+      pos: {
+        x: state.player.pos.x + action.payload.dx,
+        y: state.player.pos.y + action.payload.dy
+      }
     }
   }
 }
@@ -24,7 +30,13 @@ const move = (state: State, action: Action<MovePayload>): State => {
 const fire = (state: State, action: Action<any>): State => {
   return {
     ...state,
-    shots: state.shots.concat([{ x: state.pos.x, y: state.pos.y }])
+    shots: [
+      ...state.shots,
+      {
+        x: state.player.pos.x + state.player.width / 2 - Constants.SHOT_WIDTH / 2,
+        y: state.player.pos.y
+      }
+    ]
   }
 }
 

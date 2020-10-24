@@ -4,6 +4,8 @@ export const DX = 20;
 export const DY = 20;
 export const SHOT_DY = 100;
 export const INVADER_DY = 10;
+export const SHOT_WIDTH = 10;
+export const SHOT_HEIGHT = 10;
 
 export const KEYS = {
     MOVEMENT: {
