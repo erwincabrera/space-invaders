@@ -1,13 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
+import * as Constants from './Constants';
 import Graph from './Graph';
 import { Action, MovePayload, State, Position } from './types';
-
-const TICK_MS = 100;
-const INTERVAL_MS = 50;
-const DX = 20;
-const DY = 20;
-const SHOT_DY = 100;
-const INVADER_DY = 10;
 
 const initialState: State = {
   pos: {
@@ -19,19 +13,19 @@ const initialState: State = {
 };
 
 const moveUp = (): Action<MovePayload> => ({
-  type: 'MOVE', payload: { dx: 0, dy: -DY }
+  type: 'MOVE', payload: { dx: 0, dy: -Constants.DY }
 });
 
 const moveDown = (): Action<MovePayload> => ({
-  type: 'MOVE', payload: { dx: 0, dy: DY }
+  type: 'MOVE', payload: { dx: 0, dy: Constants.DY }
 });
 
 const moveLeft = (): Action<MovePayload> => ({
-  type: 'MOVE', payload: { dx: -DX, dy: 0 }
+  type: 'MOVE', payload: { dx: -Constants.DX, dy: 0 }
 });
 
 const moveRight = (): Action<MovePayload> => ({
-  type: 'MOVE', payload: { dx: DX, dy: 0 }
+  type: 'MOVE', payload: { dx: Constants.DX, dy: 0 }
 })
 
 const fire = (): Action<any> => ({
@@ -92,14 +86,14 @@ const reducer = (state: State, action: Action<any>): State => {
       return {
         ...state,
         shots: state.shots
-          .map(eachShot => ({ ...eachShot, y: eachShot.y - SHOT_DY}))
+          .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY}))
           .filter(eachShot => eachShot.y > 0),
         invaders: state.invaders
           .map(eachInvader => ({
             ...eachInvader,
             pos: {
               ...eachInvader.pos,
-              y: eachInvader.pos.y + INVADER_DY
+              y: eachInvader.pos.y + Constants.INVADER_DY
             }
           }))
           .filter(eachInvader => eachInvader.pos.y < 600)
@@ -150,11 +144,11 @@ const App = () => {
       if (isKeyDown[KEYS.MOVEMENT.DOWN]) dispatch(moveDown())
       if (isKeyDown[KEYS.MOVEMENT.LEFT]) dispatch(moveLeft())
       if (isKeyDown[KEYS.MOVEMENT.RIGHT]) dispatch(moveRight())
-    }, INTERVAL_MS);
+    }, Constants.INTERVAL_MS);
 
     const weaponId = setInterval(() => {
       if (isKeyDown[KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(fire())
-    }, INTERVAL_MS);
+    }, Constants.INTERVAL_MS);
 
     return () => {
       clearInterval(movementId);
@@ -168,7 +162,7 @@ const App = () => {
       if (Math.random() < .05) {
         dispatch(createInvader(getRandomInvaderPosition(0, 1200)))
       }
-    }, TICK_MS);
+    }, Constants.TICK_MS);
 
     return () => clearInterval(tickId);
   }, []);
