@@ -70,7 +70,8 @@ const tick = (state: State, action: Action<any>): State => {
       .filter(eachInvader => eachInvader.pos.y < 600)
       .filter(eachInvader => !state.shots.some(eachShot =>
         Math.abs(eachShot.x - eachInvader.pos.x) < eachInvader.width &&
-        eachShot.y - eachInvader.pos.y < eachInvader.height
+        eachShot.y - eachInvader.pos.y < eachInvader.height &&
+        eachInvader.pos.y < state.player.pos.y
       ))
   }
 }
