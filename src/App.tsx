@@ -12,19 +12,7 @@ const getRandomInvaderPosition = (min: number, max: number): Position => {
   }
 }
 
-const KEYS = {
-  MOVEMENT: {
-    UP: 'w',
-    DOWN: 's',
-    LEFT: 'a',
-    RIGHT: 'd'
-  },
-  WEAPONS: {
-    PHOTON_TORPEDOS: ' '
-  }
-};
-
-const KEY_LIST = Object.values(KEYS).reduce((acc, curr) => 
+const KEY_LIST = Object.values(Constants.KEYS).reduce((acc, curr) => 
   Object.values(acc).concat(Object.values(curr)), 
   []
 );
@@ -58,14 +46,14 @@ const App = () => {
 
   useEffect(() => {
     const movementId = setInterval(() => {
-      if (isKeyDown[KEYS.MOVEMENT.UP]) dispatch(Actions.moveUp())
-      if (isKeyDown[KEYS.MOVEMENT.DOWN]) dispatch(Actions.moveDown())
-      if (isKeyDown[KEYS.MOVEMENT.LEFT]) dispatch(Actions.moveLeft())
-      if (isKeyDown[KEYS.MOVEMENT.RIGHT]) dispatch(Actions.moveRight())
+      if (isKeyDown[Constants.KEYS.MOVEMENT.UP]) dispatch(Actions.moveUp())
+      if (isKeyDown[Constants.KEYS.MOVEMENT.DOWN]) dispatch(Actions.moveDown())
+      if (isKeyDown[Constants.KEYS.MOVEMENT.LEFT]) dispatch(Actions.moveLeft())
+      if (isKeyDown[Constants.KEYS.MOVEMENT.RIGHT]) dispatch(Actions.moveRight())
     }, Constants.INTERVAL_MS);
 
     const weaponId = setInterval(() => {
-      if (isKeyDown[KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(Actions.fire())
+      if (isKeyDown[Constants.KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(Actions.fire())
     }, Constants.INTERVAL_MS);
 
     return () => {
