@@ -15,6 +15,8 @@ export interface Position {
 
 export interface Invader {
   pos: Position;
+  width: number;
+  height: number;
 }
 
 export interface State {

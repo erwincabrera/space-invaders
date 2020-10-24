@@ -55,9 +55,11 @@ export const tick = (): Action<any> => {
   }
 }
 
-export const createInvader = (pos: Position): Action<Position> => {
+export const createInvader = (pos: Position, width: number, height: number): Action<any> => {
   return {
     type: 'CREATE_INVADER',
-    payload: pos
+    payload: {
+      pos, width, height
+    }
   }
 }

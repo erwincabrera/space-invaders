@@ -61,7 +61,7 @@ class Graph extends Component<State> {
         })
 
         this.props.invaders.forEach(eachInvader => {
-          graph.insertVertex(parent, null, "", eachInvader.pos.x, eachInvader.pos.y, 20, 20);
+          graph.insertVertex(parent, null, "", eachInvader.pos.x, eachInvader.pos.y, eachInvader.width, eachInvader.height);
         })
 
       } finally {

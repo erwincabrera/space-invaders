@@ -44,8 +44,8 @@ const tick = (state: State, action: Action<any>): State => {
       }))
       .filter(eachInvader => eachInvader.pos.y < 600)
       .filter(eachInvader => !state.shots.some(eachShot =>
-        Math.abs(eachShot.x - eachInvader.pos.x) < 50 &&
-        Math.abs(eachShot.y - eachInvader.pos.y) < 50
+        Math.abs(eachShot.x - eachInvader.pos.x) < eachInvader.width &&
+        eachShot.y - eachInvader.pos.y < eachInvader.height
       ))
   }
 }
@@ -53,7 +53,11 @@ const tick = (state: State, action: Action<any>): State => {
 const createInvader = (state: State, action: Action<any>): State => {
   return {
     ...state,
-    invaders: state.invaders.concat([{ pos: action.payload }])
+    invaders: state.invaders.concat([{
+      pos: action.payload.pos,
+      width: action.payload.width,
+      height: action.payload.height
+    }])
   }
 }
 

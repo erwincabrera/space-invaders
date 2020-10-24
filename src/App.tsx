@@ -66,7 +66,7 @@ const App = () => {
     const tickId = setInterval(() => {
       dispatch(Actions.tick());
       if (Math.random() < .05) {
-        dispatch(Actions.createInvader(getRandomInvaderPosition(0, 1200)))
+        dispatch(Actions.createInvader(getRandomInvaderPosition(0, 1200), 20, 20))
       }
     }, Constants.TICK_MS);
 
