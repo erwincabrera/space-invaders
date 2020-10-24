@@ -7,6 +7,7 @@ export const initialState: State = {
       x: 100,
       y: 100
     },
+    cooldown: 0,
     width: 75,
     height: 75
   },
@@ -30,19 +31,31 @@ const move = (state: State, action: Action<MovePayload>): State => {
 const fire = (state: State, action: Action<any>): State => {
   return {
     ...state,
-    shots: [
-      ...state.shots,
-      {
-        x: state.player.pos.x + state.player.width / 2 - Constants.SHOT_WIDTH / 2,
-        y: state.player.pos.y
-      }
-    ]
+    player: {
+      ...state.player,
+      cooldown: state.player.cooldown < 0 
+          ? Constants.SHOT_COOLDOWN 
+          : state.player.cooldown
+    },
+    shots: state.player.cooldown < 0
+      ? [
+        ...state.shots,
+        {
+          x: state.player.pos.x + state.player.width / 2 - Constants.SHOT_WIDTH / 2,
+          y: state.player.pos.y
+        }
+      ]
+      : state.shots
   }
 }
 
 const tick = (state: State, action: Action<any>): State => {
   return {
     ...state,
+    player: {
+      ...state.player,
+      cooldown: state.player.cooldown - 1
+    },
     shots: state.shots
       .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY }))
       .filter(eachShot => eachShot.y > 0),

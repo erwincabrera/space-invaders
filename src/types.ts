@@ -14,7 +14,8 @@ export interface Position {
 }
 
 export interface Player {
-  pos: Position
+  pos: Position;
+  cooldown: number;
   width: number;
   height: number;
 }
