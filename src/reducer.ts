@@ -1,4 +1,4 @@
-import { Action, MovePayload, State } from "./types"
+import { Action, Invader, MovePayload, State, Position } from "./types"
 import * as Constants from './Constants'
 
 export const initialState: State = {
@@ -57,9 +57,16 @@ const tick = (state: State, action: Action<any>): State => {
       cooldown: state.player.cooldown - 1
     },
     shots: state.shots
-      .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY }))
-      .filter(eachShot => eachShot.y > 0),
+      .filter(eachShot => eachShot.y > 0)
+      .filter(eachShot => !state.invaders.some(eachInvader =>
+        isHit(eachInvader, eachShot, state.player.pos)
+      ))
+      .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY })),
     invaders: state.invaders
+      .filter(eachInvader => eachInvader.pos.y < 600)
+      .filter(eachInvader => !state.shots.some(eachShot =>
+        isHit(eachInvader, eachShot, state.player.pos)
+      ))
       .map(eachInvader => ({
         ...eachInvader,
         pos: {
@@ -67,12 +74,6 @@ const tick = (state: State, action: Action<any>): State => {
           y: eachInvader.pos.y + Constants.INVADER_DY
         }
       }))
-      .filter(eachInvader => eachInvader.pos.y < 600)
-      .filter(eachInvader => !state.shots.some(eachShot =>
-        Math.abs(eachShot.x - eachInvader.pos.x) < eachInvader.width &&
-        eachShot.y - eachInvader.pos.y < eachInvader.height &&
-        eachInvader.pos.y < state.player.pos.y
-      ))
   }
 }
 
@@ -100,4 +101,10 @@ export const reducer = (state: State, action: Action<any>): State => {
     default:
       return initialState;
   }
+}
+
+const isHit = (invader: Invader, shot: Position, playerPos: Position): boolean => {
+  return Math.abs(shot.x - invader.pos.x) < invader.width &&
+    shot.y - invader.pos.y < invader.height &&
+    invader.pos.y < playerPos.y
 }
