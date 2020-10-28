@@ -59,13 +59,13 @@ const tick = (state: State, action: Action<any>): State => {
     shots: state.shots
       .filter(eachShot => eachShot.y > 0)
       .filter(eachShot => !state.invaders.some(eachInvader =>
-        isHit(eachInvader, eachShot, state.player.pos)
+        isHit(eachInvader, eachShot)
       ))
       .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY })),
     invaders: state.invaders
       .filter(eachInvader => eachInvader.pos.y < 600)
       .filter(eachInvader => !state.shots.some(eachShot =>
-        isHit(eachInvader, eachShot, state.player.pos)
+        isHit(eachInvader, eachShot)
       ))
       .map(eachInvader => ({
         ...eachInvader,
@@ -103,8 +103,8 @@ export const reducer = (state: State, action: Action<any>): State => {
   }
 }
 
-const isHit = (invader: Invader, shot: Position, playerPos: Position): boolean => {
+const isHit = (invader: Invader, shot: Position): boolean => {
   return Math.abs(shot.x - invader.pos.x) < invader.width &&
-    shot.y - invader.pos.y < invader.height &&
-    invader.pos.y < playerPos.y
+    shot.y - invader.pos.y <= invader.height &&
+    shot.y - invader.pos.y >= -(Constants.SHOT_DY - invader.height + Constants.INVADER_DY)
 }
