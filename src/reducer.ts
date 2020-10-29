@@ -16,16 +16,23 @@ export const initialState: State = {
 };
 
 const move = (state: State, action: Action<MovePayload>): State => {
-  return {
-    ...state,
-    player: {
-      ...state.player,
-      pos: {
-        x: state.player.pos.x + action.payload.dx,
-        y: state.player.pos.y + action.payload.dy
+  const player = state.player;
+  const newPos = {
+    x: state.player.pos.x + action.payload.dx,
+    y: state.player.pos.y + action.payload.dy
+  }
+
+  if (isWithinBounds(newPos, player.width, player.height, Constants.WIDTH, Constants.HEIGHT)) {
+    return {
+      ...state,
+      player: {
+        ...state.player,
+        pos: newPos
       }
     }
   }
+
+  return state  
 }
 
 const fire = (state: State, action: Action<any>): State => {
@@ -63,7 +70,7 @@ const tick = (state: State, action: Action<any>): State => {
       ))
       .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY })),
     invaders: state.invaders
-      .filter(eachInvader => eachInvader.pos.y < 600)
+      .filter(eachInvader => eachInvader.pos.y + eachInvader.height < Constants.HEIGHT)
       .filter(eachInvader => !state.shots.some(eachShot =>
         isHit(eachInvader, eachShot)
       ))
@@ -108,4 +115,11 @@ const isHit = (invader: Invader, shot: Position): boolean => {
     shot.x - invader.pos.x >= -Constants.SHOT_WIDTH &&
     shot.y - invader.pos.y <= invader.height &&
     shot.y - invader.pos.y >= -(Constants.SHOT_DY - invader.height + Constants.INVADER_DY)
+}
+
+const isWithinBounds = (pos: Position, width: number, height: number, maxWidth: number, maxHeight: number): boolean => {
+  return pos.y + height < maxHeight &&
+          pos.y > 0 &&
+          pos.x + width < maxWidth &&
+          pos.x > 0;
 }

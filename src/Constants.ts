@@ -1,3 +1,5 @@
+export const HEIGHT = 600;
+export const WIDTH = 1024;
 export const TICK_MS = 60;
 export const INTERVAL_MS = 60;
 export const SHOT_COOLDOWN = 10;

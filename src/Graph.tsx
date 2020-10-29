@@ -14,6 +14,12 @@ const mxClient = myGraph.mxClient;
 const mxUtils = myGraph.mxUtils;
 const mxEvent = myGraph.mxEvent;
 
+const style = {
+  margin: "0 auto",
+  width: Constants.WIDTH, 
+  height: Constants.HEIGHT
+}
+
 
 class Graph extends Component<State> {
   constructor(props: any) {
@@ -73,7 +79,7 @@ class Graph extends Component<State> {
   }
 
   render() {
-    return <div className="graph-container" ref="divGraph" id="divGraph" />;
+    return <div className="graph-container" ref="divGraph" id="divGraph" style={style}/>;
   }
 }
 
