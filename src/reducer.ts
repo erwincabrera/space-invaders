@@ -104,7 +104,8 @@ export const reducer = (state: State, action: Action<any>): State => {
 }
 
 const isHit = (invader: Invader, shot: Position): boolean => {
-  return Math.abs(shot.x - invader.pos.x) < invader.width &&
+  return shot.x - invader.pos.x <= invader.width &&
+    shot.x - invader.pos.x >= -Constants.SHOT_WIDTH &&
     shot.y - invader.pos.y <= invader.height &&
     shot.y - invader.pos.y >= -(Constants.SHOT_DY - invader.height + Constants.INVADER_DY)
 }
