@@ -77,18 +77,19 @@ test('destroys both shot and invader upon impact', () => {
   expect(reducer(state, Actions.tick())).toEqual(expected)
 })
 
-test('destroys both shot and invader upon impact considering heights - just touching', () => {
+test('destroys both shot and invader upon impact - just toucing invader lower left', () => {
   const invaderHeight = 20;
+  const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
     invaders: [
       {
         height: invaderHeight,
-        width: 20,
+        width: invaderWidth,
         pos: { x: 50, y: 500 }
       }
     ],
     shots: [
-      { x: 50, y: 500 + invaderHeight }
+      { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight }
     ],
     player: {
       height: 50,
@@ -111,18 +112,89 @@ test('destroys both shot and invader upon impact considering heights - just touc
   expect(reducer(state, Actions.tick())).toEqual(expected)
 })
 
-test('destroys both shot and invader upon impact considering heights - max distance', () => {
+test('destroys both shot and invader upon impact - just toucing invader lower right', () => {
   const invaderHeight = 20;
+  const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
     invaders: [
       {
         height: invaderHeight,
-        width: 20,
+        width: invaderWidth,
+        pos: { x: 50, y: 500 }
+      }
+    ],
+    shots: [
+      { x: 50 + invaderWidth, y: 500 + invaderHeight }
+    ],
+    player: {
+      height: 50,
+      width: 50,
+      pos: { x: 50, y: 1000 },
+      cooldown: 10,
+    }
+  };
+
+  const expected: State = {
+    ...state,
+    invaders: [],
+    shots: [],
+    player: {
+      ...state.player,
+      cooldown: 9
+    }
+  }
+
+  expect(reducer(state, Actions.tick())).toEqual(expected)
+})
+
+test('destroys both shot and invader upon impact - just toucing invader upper left edge case', () => {
+  const invaderHeight = 20;
+  const invaderWidth = Constants.SHOT_WIDTH - 1;
+  const state: State = {
+    invaders: [
+      {
+        height: invaderHeight,
+        width: invaderWidth,
         pos: { x: 50, y: 500 + Constants.INVADER_DY}
       }
     ],
     shots: [
-      { x: 50, y: 500 + invaderHeight - Constants.SHOT_DY}
+      { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight - Constants.SHOT_DY}
+    ],
+    player: {
+      height: 50,
+      width: 50,
+      pos: { x: 50, y: 1000 },
+      cooldown: 10,
+    }
+  };
+
+  const expected: State = {
+    ...state,
+    invaders: [],
+    shots: [],
+    player: {
+      ...state.player,
+      cooldown: 9
+    }
+  }
+
+  expect(reducer(state, Actions.tick())).toEqual(expected)
+})
+
+test('destroys both shot and invader upon impact - just toucing invader upper right edge case', () => {
+  const invaderHeight = 20;
+  const invaderWidth = Constants.SHOT_WIDTH - 1;
+  const state: State = {
+    invaders: [
+      {
+        height: invaderHeight,
+        width: invaderWidth,
+        pos: { x: 50, y: 500 + Constants.INVADER_DY}
+      }
+    ],
+    shots: [
+      { x: 50 + invaderWidth, y: 500 + invaderHeight - Constants.SHOT_DY}
     ],
     player: {
       height: 50,
