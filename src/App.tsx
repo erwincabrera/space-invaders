@@ -4,6 +4,7 @@ import * as Actions from './Actions';
 import Graph from './Graph';
 import { initialState, reducer } from './reducer';
 import { Position } from './types';
+import ReactDOM from 'react-dom';
 
 const getRandomInvaderPosition = (min: number, max: number): Position => {
   return {
@@ -45,33 +46,22 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const movementId = setInterval(() => {
+    const update = () => {
       if (isKeyDown[Constants.KEYS.MOVEMENT.UP]) dispatch(Actions.moveUp())
       if (isKeyDown[Constants.KEYS.MOVEMENT.DOWN]) dispatch(Actions.moveDown())
       if (isKeyDown[Constants.KEYS.MOVEMENT.LEFT]) dispatch(Actions.moveLeft())
       if (isKeyDown[Constants.KEYS.MOVEMENT.RIGHT]) dispatch(Actions.moveRight())
-    }, Constants.INTERVAL_MS);
-
-    const weaponId = setInterval(() => {
       if (isKeyDown[Constants.KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(Actions.fire())
-    }, Constants.INTERVAL_MS);
 
-    return () => {
-      clearInterval(movementId);
-      clearInterval(weaponId);
-    }
-  }, [])
-
-  useEffect(() => {
-    const tickId = setInterval(() => {
-      dispatch(Actions.tick());
+      dispatch(Actions.tick())
       if (Math.random() < .05) {
         dispatch(Actions.createInvader(getRandomInvaderPosition(0, Constants.WIDTH), 20, 20))
       }
-    }, Constants.TICK_MS);
+    }
 
-    return () => clearInterval(tickId);
-  }, []);
+    const tickId = setInterval(() => ReactDOM.unstable_batchedUpdates(update) ,Constants.TICK_MS);
+    return () => clearInterval(tickId)
+  }, [])
 
   return (
     <div>
