@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import * as Constants from './Constants';
 import * as Actions from './Actions';
-import Graph from './Graph';
+import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
 import { Position } from './types';
 import ReactDOM from 'react-dom';
@@ -65,7 +65,7 @@ const App = () => {
 
   return (
     <div>
-      <Graph {...state}></Graph>
+      <GameCanvas {...state}></GameCanvas>
     </div>
   )
 }
