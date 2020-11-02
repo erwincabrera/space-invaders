@@ -5,6 +5,9 @@ import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
 import { Position } from './types';
 import ReactDOM from 'react-dom';
+import { SoundRef, Sound } from './components/Sound';
+
+const audioPhotonTorpedos = require('./audio/photon-torpedos.mp3')
 
 const getRandomInvaderPosition = (min: number, max: number): Position => {
   return {
@@ -22,6 +25,7 @@ const isKeyDown = {}
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const audioPtRef = React.useRef<SoundRef>();
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -47,13 +51,14 @@ const App = () => {
 
   useEffect(() => {
     const update = () => {
+      dispatch(Actions.tick())
+      
       if (isKeyDown[Constants.KEYS.MOVEMENT.UP]) dispatch(Actions.moveUp())
       if (isKeyDown[Constants.KEYS.MOVEMENT.DOWN]) dispatch(Actions.moveDown())
       if (isKeyDown[Constants.KEYS.MOVEMENT.LEFT]) dispatch(Actions.moveLeft())
       if (isKeyDown[Constants.KEYS.MOVEMENT.RIGHT]) dispatch(Actions.moveRight())
       if (isKeyDown[Constants.KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(Actions.fire())
 
-      dispatch(Actions.tick())
       if (Math.random() < .05) {
         dispatch(Actions.createInvader(getRandomInvaderPosition(0, Constants.WIDTH), 20, 20))
       }
@@ -63,8 +68,15 @@ const App = () => {
     return () => clearInterval(tickId)
   }, [])
 
+  useEffect(() => {
+    if (state.player.cooldown === Constants.SHOT_COOLDOWN) {
+      audioPtRef.current.play()
+    }
+  }, [audioPtRef, state.player.cooldown])
+
   return (
     <div>
+      <Sound ref={audioPtRef} audio={audioPhotonTorpedos}/>
       <GameCanvas {...state}></GameCanvas>
     </div>
   )
