@@ -24,6 +24,7 @@ export interface Invader {
   pos: Position;
   width: number;
   height: number;
+  hp: number;
 }
 
 export interface State {

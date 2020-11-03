@@ -57,6 +57,14 @@ const fire = (state: State, action: Action<any>): State => {
 }
 
 const tick = (state: State, action: Action<any>): State => {
+  const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader, eachShot));
+  const shotHit = (shot: Position) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
+
+  const newHp = (invader: Invader) => 
+    invader.hp > 0 && invaderHit(invader)
+      ? invader.hp - 1 
+      : invader.hp
+
   return {
     ...state,
     player: {
@@ -65,21 +73,18 @@ const tick = (state: State, action: Action<any>): State => {
     },
     shots: state.shots
       .filter(eachShot => eachShot.y > 0)
-      .filter(eachShot => !state.invaders.some(eachInvader =>
-        isHit(eachInvader, eachShot)
-      ))
+      .filter(eachShot => !shotHit(eachShot))
       .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY })),
     invaders: state.invaders
       .filter(eachInvader => eachInvader.pos.y + eachInvader.height < Constants.HEIGHT)
-      .filter(eachInvader => !state.shots.some(eachShot =>
-        isHit(eachInvader, eachShot)
-      ))
+      .filter(eachInvader => eachInvader.hp > 0)
       .map(eachInvader => ({
         ...eachInvader,
         pos: {
           ...eachInvader.pos,
-          y: eachInvader.pos.y + Constants.INVADER_DY
-        }
+          y: newHp(eachInvader) > 0 ? eachInvader.pos.y + Constants.INVADER_DY : eachInvader.pos.y
+        },
+        hp: newHp(eachInvader)
       }))
   }
 }
@@ -90,7 +95,8 @@ const createInvader = (state: State, action: Action<any>): State => {
     invaders: state.invaders.concat([{
       pos: action.payload.pos,
       width: action.payload.width,
-      height: action.payload.height
+      height: action.payload.height,
+      hp: 1
     }])
   }
 }
