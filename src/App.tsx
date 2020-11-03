@@ -3,11 +3,14 @@ import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
-import { Position } from './types';
+import { Position, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 
-const audioPhotonTorpedos = require('./audio/photon-torpedos.mp3')
+const audioMap: Record<Sounds, any> = {
+  photonTorpedos: require('./audio/photon-torpedos.mp3'),
+  invaderDeath: require('./audio/invader-death.mp3'),
+};
 
 const getRandomInvaderPosition = (min: number, max: number): Position => {
   return {
@@ -25,7 +28,10 @@ const isKeyDown = {}
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const audioPtRef = React.useRef<SoundRef>();
+  const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
+    invaderDeath: React.useRef(),
+    photonTorpedos: React.useRef()
+  }
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -70,13 +76,20 @@ const App = () => {
 
   useEffect(() => {
     if (state.player.cooldown === Constants.SHOT_COOLDOWN) {
-      audioPtRef.current.play()
+      audioRefs.photonTorpedos.current.play()
     }
-  }, [audioPtRef, state.player.cooldown])
+
+    state.invaders.forEach(eachInvader => {
+      if (eachInvader.hp <= 0) {
+        audioRefs.invaderDeath.current.play()
+      }
+    })
+
+  }, [audioRefs.invaderDeath, audioRefs.photonTorpedos, state.invaders, state.player.cooldown])
 
   return (
     <div>
-      <Sound ref={audioPtRef} audio={audioPhotonTorpedos}/>
+      {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
       <GameCanvas {...state}></GameCanvas>
     </div>
   )

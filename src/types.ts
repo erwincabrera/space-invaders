@@ -1,3 +1,5 @@
+export type Sounds = "photonTorpedos" | "invaderDeath"
+
 export interface Action<T> {
   type: string;
   payload: T;
