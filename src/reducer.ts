@@ -2,6 +2,7 @@ import { Action, Invader, MovePayload, State, Position } from "./types"
 import * as Constants from './Constants'
 
 export const initialState: State = {
+  isStarted: false,
   player: {
     pos: {
       x: 100,

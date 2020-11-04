@@ -30,6 +30,7 @@ export interface Invader {
 }
 
 export interface State {
+  isStarted: boolean;
   player: Player,
   shots: Position[],
   invaders: Invader[]
