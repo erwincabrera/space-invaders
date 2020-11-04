@@ -12,6 +12,7 @@ export const SHOT_WIDTH = 10;
 export const SHOT_HEIGHT = 10;
 
 export const KEYS = {
+    START: 'Enter',
     MOVEMENT: {
         UP: 'w',
         DOWN: 's',

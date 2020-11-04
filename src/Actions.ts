@@ -1,6 +1,13 @@
 import { Action, MovePayload, Position } from "./types";
 import * as Constants from "./Constants";
 
+export const start = (): Action<any> => {
+  return {
+    type: 'START',
+    payload: {}
+  }
+}
+
 export const moveUp = (): Action<MovePayload> => {
   return {
     type: 'MOVE',

@@ -90,7 +90,7 @@ const tick = (state: State, action: Action<any>): State => {
   }
 }
 
-const createInvader = (state: State, action: Action<any>): State => {
+const createInvader = (state: State, action: Action<any>): State => {  
   return {
     ...state,
     invaders: state.invaders.concat([{
@@ -103,6 +103,14 @@ const createInvader = (state: State, action: Action<any>): State => {
 }
 
 export const reducer = (state: State, action: Action<any>): State => {
+  if (action.type === 'START') {
+    return {...state, isStarted: true}
+  }
+  
+  if (state.isStarted === false) {
+    return state;
+  }
+
   switch (action.type) {
     case 'MOVE':
       return move(state, action)
