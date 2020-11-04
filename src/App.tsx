@@ -42,10 +42,6 @@ const App = () => {
     }
     
     const handleKeydown = (e: KeyboardEvent) => {
-      if (state.isStarted === false && e.key === Constants.KEYS.START) {
-        dispatch(Actions.start());
-      }
-
       if (KEY_LIST.indexOf(e.key) !== -1) {
         isKeyDown[e.key] = true
       }
@@ -58,7 +54,7 @@ const App = () => {
       window.removeEventListener('keydown', handleKeydown);
       window.removeEventListener('keyup', handleKeyup);
     }
-  }, [state.isStarted])
+  }, [])
 
   useEffect(() => {
     const update = () => {
@@ -95,7 +91,9 @@ const App = () => {
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
-      {state.isStarted ? <GameCanvas {...state}></GameCanvas> : <StartScreen />}
+      {state.isStarted 
+        ? <GameCanvas {...state}></GameCanvas> 
+        : <StartScreen handleStart={() => dispatch(Actions.start())} />}
     </div>
   )
 }
