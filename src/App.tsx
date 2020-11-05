@@ -7,6 +7,7 @@ import { Position, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
+import { isGameOver, isHit } from './helpers';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./audio/photon-torpedos.mp3'),
@@ -87,13 +88,20 @@ const App = () => {
     })
 
   }, [audioRefs.invaderDeath, audioRefs.photonTorpedos, state.invaders, state.player.cooldown])
+  
+
+  if (state.isStarted === false) {
+    return <StartScreen handleStart={() => dispatch(Actions.start())} />
+  }
+
+  if (isGameOver(state)) {
+    return <div></div>
+  }
 
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
-      {state.isStarted 
-        ? <GameCanvas {...state}></GameCanvas> 
-        : <StartScreen handleStart={() => dispatch(Actions.start())} />}
+      <GameCanvas {...state}></GameCanvas>
     </div>
   )
 }

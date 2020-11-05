@@ -30,3 +30,9 @@ export const dx = (p1: Position, p2: Position): number => {
 export const dy = (p1: Position, p2: Position): number => {
   return  p2.y - p1.y;
 }
+
+export const isGameOver = (state: State): boolean => {
+  return state.invaders
+    .map(eachInvader => eachInvader.geo)
+    .some(eachInvaderGeo => isOverlapping(state.player.geo, eachInvaderGeo))
+}

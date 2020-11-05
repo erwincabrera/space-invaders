@@ -1,6 +1,6 @@
 import { Action, Invader, MovePayload, State, Shot } from "./types"
 import * as Constants from './Constants'
-import { isHit, isWithinBounds } from "./helpers";
+import { isGameOver, isHit, isWithinBounds } from "./helpers";
 
 export const initialState: State = {
   isStarted: false,
@@ -70,8 +70,8 @@ const fire = (state: State, action: Action<any>): State => {
 }
 
 const tick = (state: State, action: Action<any>): State => {
-  const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader.geo, eachShot.geo));
-  const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader.geo, shot.geo));
+  const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader, eachShot));
+  const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
 
   const newHp = (invader: Invader) => 
     invader.hp > 0 && invaderHit(invader)
@@ -134,6 +134,10 @@ export const reducer = (state: State, action: Action<any>): State => {
   }
   
   if (state.isStarted === false) {
+    return state;
+  }
+
+  if (isGameOver(state)) {
     return state;
   }
 
