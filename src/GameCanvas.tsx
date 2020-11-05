@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import * as GraphModule from "mxgraph/javascript/dist/build";
 import { State } from "./types";
 import * as Constants from "./Constants";
-import { dx, dy } from "./helpers";
+import { dx, dy } from "./Geometry";
 
 const myGraph = new GraphModule({
   mxImageBasePath: "mxgraph/javascript/src/images",

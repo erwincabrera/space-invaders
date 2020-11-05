@@ -1,3 +1,5 @@
+import { Geometry } from "./Geometry";
+
 export type Sounds = "photonTorpedos" | "invaderDeath"
 
 export interface Action<T> {
@@ -8,17 +10,6 @@ export interface Action<T> {
 export interface MovePayload {
   dx: number;
   dy: number;
-}
-
-export interface Position {
-  x: number,
-  y: number
-}
-
-export interface Geometry {
-  pos: Position,
-  width: number;
-  height: number;
 }
 
 export interface Player {

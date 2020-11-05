@@ -1,4 +1,5 @@
-import { Action, MovePayload, Position } from "./types";
+import { Action, MovePayload } from "./types";
+import { Position } from "./Geometry";
 import * as Constants from "./Constants";
 
 export const start = (): Action<any> => {

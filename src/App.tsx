@@ -3,11 +3,12 @@ import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
-import { Position, Sounds } from './types';
+import { Sounds } from './types';
+import { Position } from "./Geometry";
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
-import { isGameOver, isHit } from './helpers';
+import { isGameOver } from './helpers';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./audio/photon-torpedos.mp3'),
