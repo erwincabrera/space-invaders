@@ -44,8 +44,8 @@ class GameCanvas extends Component<Props> {
 
     graph.moveCells(
       [this.getPlayer()], 
-      dx(prevProps.player.pos, this.props.player.pos), 
-      dy(prevProps.player.pos, this.props.player.pos)
+      dx(prevProps.player.geo.pos, this.props.player.geo.pos), 
+      dy(prevProps.player.geo.pos, this.props.player.geo.pos)
     );
 
     // TODO: move the cells
@@ -89,7 +89,7 @@ class GameCanvas extends Component<Props> {
 
       graph.getModel().beginUpdate();
       try {
-        const { pos, width, height } = this.props.player;
+        const { pos, width, height } = this.props.player.geo;
         this.player = graph.insertVertex(parent, null, "USS\nEnterprise", pos.x, pos.y, width, height);
 
         this.shots = [];

@@ -22,10 +22,8 @@ export interface Geometry {
 }
 
 export interface Player {
-  pos: Position;
+  geo: Geometry;
   cooldown: number;
-  width: number;
-  height: number;
 }
 
 export interface Invader {

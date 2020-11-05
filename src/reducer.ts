@@ -4,13 +4,15 @@ import * as Constants from './Constants'
 export const initialState: State = {
   isStarted: false,
   player: {
-    pos: {
-      x: 100,
-      y: 100
+    geo: {
+      width: 75,
+      height: 75,
+      pos: {
+        x: 100,
+        y: 100
+      },
     },
-    cooldown: 0,
-    width: 75,
-    height: 75
+    cooldown: 0
   },
   shots: [],
   invaders: []
@@ -19,16 +21,19 @@ export const initialState: State = {
 const move = (state: State, action: Action<MovePayload>): State => {
   const player = state.player;
   const newPos = {
-    x: state.player.pos.x + action.payload.dx,
-    y: state.player.pos.y + action.payload.dy
+    x: state.player.geo.pos.x + action.payload.dx,
+    y: state.player.geo.pos.y + action.payload.dy
   }
 
-  if (isWithinBounds(newPos, player.width, player.height, Constants.WIDTH, Constants.HEIGHT)) {
+  if (isWithinBounds(newPos, player.geo.width, player.geo.height, Constants.WIDTH, Constants.HEIGHT)) {
     return {
       ...state,
       player: {
         ...state.player,
-        pos: newPos
+        geo: {
+          ...state.player.geo,
+          pos: newPos
+        }
       }
     }
   }
@@ -49,8 +54,8 @@ const fire = (state: State, action: Action<any>): State => {
       ? [
         ...state.shots,
         {
-          x: state.player.pos.x + state.player.width / 2 - Constants.SHOT_WIDTH / 2,
-          y: state.player.pos.y
+          x: state.player.geo.pos.x + state.player.geo.width / 2 - Constants.SHOT_WIDTH / 2,
+          y: state.player.geo.pos.y
         }
       ]
       : state.shots

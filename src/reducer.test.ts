@@ -19,9 +19,11 @@ test('updates on tick', () => {
     ],
     player: {
       cooldown: 10,
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -62,10 +64,12 @@ test('hit logic', () => {
       { x: 50, y: 500 }
     ],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -106,10 +110,12 @@ test('hit logic - just toucing invader lower left', () => {
       { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight }
     ],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -150,10 +156,12 @@ test('hit logic - just toucing invader lower right', () => {
       { x: 50 + invaderWidth, y: 500 + invaderHeight }
     ],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -194,10 +202,12 @@ test('hit logic - just toucing invader upper left edge case', () => {
       { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight - Constants.SHOT_DY}
     ],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -238,10 +248,12 @@ test('hit logic - just toucing invader upper right edge case', () => {
       { x: 50 + invaderWidth, y: 500 + invaderHeight - Constants.SHOT_DY}
     ],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -281,10 +293,12 @@ test('hit logic - distance too large', () => {
       { x: 50, y: 500 + invaderHeight - Constants.SHOT_DY}
     ],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
@@ -323,10 +337,12 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
     ],
     shots: [],
     player: {
-      height: 50,
-      width: 50,
-      pos: { x: 50, y: 1000 },
       cooldown: 10,
+      geo: {
+        height: 50,
+        width: 50,
+        pos: { x: 50, y: 1000 }
+      }
     }
   };
 
