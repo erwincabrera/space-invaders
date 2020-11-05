@@ -1,6 +1,7 @@
 import { Action, Invader, MovePayload, State, Shot } from "./types"
 import * as Constants from './Constants'
-import { isGameOver, isHit, isWithinBounds } from "./helpers";
+import { isGameOver, isHit } from "./helpers";
+import { isWithinBounds } from "./Geometry";
 
 export const initialState: State = {
   isStarted: false,
