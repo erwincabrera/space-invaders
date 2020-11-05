@@ -8,9 +8,11 @@ test('updates on tick', () => {
     isStarted: true,
     invaders: [
       {
-        height: 20,
-        width: 20,
-        pos: { x: 50, y: 500 - Constants.INVADER_DY},
+        geo: {
+          height: 20,
+          width: 20,
+          pos: { x: 50, y: 500 - Constants.INVADER_DY},
+        },
         hp: 1
       }
     ],
@@ -31,9 +33,11 @@ test('updates on tick', () => {
     ...state,
     invaders: [
       {
-        height: 20,
-        width: 20,
-        pos: { x: 50, y: 500},
+        geo: {
+          height: 20,
+          width: 20,
+          pos: { x: 50, y: 500},
+        },
         hp: 1
       }
     ],
@@ -54,9 +58,11 @@ test('hit logic', () => {
     isStarted: true,
     invaders: [
       {
-        height: 20,
-        width: 20,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: 20,
+          width: 20,
+          pos: { x: 50, y: 500 },
+        },
         hp: 1
       }
     ],
@@ -77,9 +83,11 @@ test('hit logic', () => {
     ...state,
     invaders: [
       {
-        height: 20,
-        width: 20,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: 20,
+          width: 20,
+          pos: { x: 50, y: 500 },
+        },
         hp: 0
       }
     ],
@@ -100,9 +108,11 @@ test('hit logic - just toucing invader lower left', () => {
     isStarted: true,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 },
+        },
         hp: 1
       }
     ],
@@ -123,9 +133,11 @@ test('hit logic - just toucing invader lower left', () => {
     ...state,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 },
+        },
         hp: 0
       }
     ],
@@ -146,9 +158,11 @@ test('hit logic - just toucing invader lower right', () => {
     isStarted: true,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 },
+        },
         hp: 1
       }
     ],
@@ -169,9 +183,11 @@ test('hit logic - just toucing invader lower right', () => {
     ...state,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 },
+        },
         hp: 0
       }
     ],
@@ -192,9 +208,11 @@ test('hit logic - just toucing invader upper left edge case', () => {
     isStarted: true,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        },
         hp: 1
       }
     ],
@@ -215,9 +233,11 @@ test('hit logic - just toucing invader upper left edge case', () => {
     ...state,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        },
         hp: 0
       }
     ],
@@ -238,9 +258,11 @@ test('hit logic - just toucing invader upper right edge case', () => {
     isStarted: true,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        },
         hp: 1
       }
     ],
@@ -261,9 +283,11 @@ test('hit logic - just toucing invader upper right edge case', () => {
     ...state,
     invaders: [
       {
-        height: invaderHeight,
-        width: invaderWidth,
-        pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        geo: {
+          height: invaderHeight,
+          width: invaderWidth,
+          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+        },
         hp: 0
       }
     ],
@@ -283,9 +307,11 @@ test('hit logic - distance too large', () => {
     isStarted: true,
     invaders: [
       {
-        height: invaderHeight,
-        width: 20,
-        pos: { x: 50, y: 500 + Constants.INVADER_DY + 0.5},
+        geo: {
+          height: invaderHeight,
+          width: 20,
+          pos: { x: 50, y: 500 + Constants.INVADER_DY + 0.5},
+        },
         hp: 1
       }
     ],
@@ -306,9 +332,11 @@ test('hit logic - distance too large', () => {
     ...state,
     invaders: [
       {
-        height: invaderHeight,
-        width: 20,
-        pos: { x: 50, y: 500 + 2*Constants.INVADER_DY + 0.5},
+        geo: {
+          height: invaderHeight,
+          width: 20,
+          pos: { x: 50, y: 500 + 2*Constants.INVADER_DY + 0.5},
+        },
         hp: 1
       }
     ],
@@ -329,9 +357,11 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
     isStarted: true,
     invaders: [
       {
-        height: 20,
-        width: 20,
-        pos: { x: 50, y: 500 },
+        geo: {
+          height: 20,
+          width: 20,
+          pos: { x: 50, y: 500 },
+        },
         hp: 0
       }
     ],

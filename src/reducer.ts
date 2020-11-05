@@ -82,13 +82,16 @@ const tick = (state: State, action: Action<any>): State => {
       .filter(eachShot => !shotHit(eachShot))
       .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY })),
     invaders: state.invaders
-      .filter(eachInvader => eachInvader.pos.y + eachInvader.height < Constants.HEIGHT)
+      .filter(eachInvader => eachInvader.geo.pos.y + eachInvader.geo.height < Constants.HEIGHT)
       .filter(eachInvader => eachInvader.hp > 0)
       .map(eachInvader => ({
         ...eachInvader,
-        pos: {
-          ...eachInvader.pos,
-          y: newHp(eachInvader) > 0 ? eachInvader.pos.y + Constants.INVADER_DY : eachInvader.pos.y
+        geo: {
+          ...eachInvader.geo,
+          pos: {
+            ...eachInvader.geo.pos,
+            y: newHp(eachInvader) > 0 ? eachInvader.geo.pos.y + Constants.INVADER_DY : eachInvader.geo.pos.y
+          }
         },
         hp: newHp(eachInvader)
       }))
@@ -99,9 +102,11 @@ const createInvader = (state: State, action: Action<any>): State => {
   return {
     ...state,
     invaders: state.invaders.concat([{
-      pos: action.payload.pos,
-      width: action.payload.width,
-      height: action.payload.height,
+      geo: {
+        pos: action.payload.pos,
+        width: action.payload.width,
+        height: action.payload.height,
+      },
       hp: 1
     }])
   }
@@ -131,10 +136,10 @@ export const reducer = (state: State, action: Action<any>): State => {
 }
 
 const isHit = (invader: Invader, shot: Position): boolean => {
-  return shot.x - invader.pos.x <= invader.width &&
-    shot.x - invader.pos.x >= -Constants.SHOT_WIDTH &&
-    shot.y - invader.pos.y <= invader.height &&
-    shot.y - invader.pos.y >= -(Constants.SHOT_DY - invader.height + Constants.INVADER_DY)
+  return shot.x - invader.geo.pos.x <= invader.geo.width &&
+    shot.x - invader.geo.pos.x >= -Constants.SHOT_WIDTH &&
+    shot.y - invader.geo.pos.y <= invader.geo.height &&
+    shot.y - invader.geo.pos.y >= -(Constants.SHOT_DY - invader.geo.height + Constants.INVADER_DY)
 }
 
 const isWithinBounds = (pos: Position, width: number, height: number, maxWidth: number, maxHeight: number): boolean => {

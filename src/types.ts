@@ -27,9 +27,7 @@ export interface Player {
 }
 
 export interface Invader {
-  pos: Position;
-  width: number;
-  height: number;
+  geo: Geometry;
   hp: number;
 }
 

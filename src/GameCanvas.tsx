@@ -60,8 +60,8 @@ class GameCanvas extends Component<Props> {
     graph.removeCells(this.getInvaders())
     this.invaders = [];
     this.props.invaders.forEach(eachInvader => {
-      this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.pos.x, eachInvader.pos.y, 
-        eachInvader.width, eachInvader.height))
+      this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.geo.pos.x, eachInvader.geo.pos.y, 
+        eachInvader.geo.width, eachInvader.geo.height))
     })
   }
 
@@ -100,8 +100,8 @@ class GameCanvas extends Component<Props> {
 
         this.invaders = [];
         this.props.invaders.forEach(eachInvader => {
-          this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.pos.x, eachInvader.pos.y, 
-            eachInvader.width, eachInvader.height))
+          this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.geo.pos.x, eachInvader.geo.pos.y, 
+            eachInvader.geo.width, eachInvader.geo.height))
         })
 
       } finally {
