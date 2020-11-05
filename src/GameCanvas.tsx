@@ -52,7 +52,7 @@ class GameCanvas extends Component<Props> {
     graph.removeCells(this.getShots());
     this.shots = [];
     this.props.shots.forEach(eachShot => {
-      this.shots.push(graph.insertVertex(parent, null, "", eachShot.x, eachShot.y, 
+      this.shots.push(graph.insertVertex(parent, null, "", eachShot.geo.pos.x, eachShot.geo.pos.y, 
         Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT));
     })
 
@@ -94,7 +94,7 @@ class GameCanvas extends Component<Props> {
 
         this.shots = [];
         this.props.shots.forEach(eachShot => {
-          this.shots.push(graph.insertVertex(parent, null, "", eachShot.x, eachShot.y, 
+          this.shots.push(graph.insertVertex(parent, null, "", eachShot.geo.pos.x, eachShot.geo.pos.y, 
             Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT));
         })
 

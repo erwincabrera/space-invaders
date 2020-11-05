@@ -31,10 +31,14 @@ export interface Invader {
   hp: number;
 }
 
+export interface Shot {
+  geo: Geometry;
+}
+
 export interface State {
   isStarted: boolean;
   player: Player,
-  shots: Position[],
+  shots: Shot[],
   invaders: Invader[]
 }
 

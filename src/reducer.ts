@@ -1,4 +1,4 @@
-import { Action, Invader, MovePayload, State, Position } from "./types"
+import { Action, Invader, MovePayload, State, Shot } from "./types"
 import * as Constants from './Constants'
 import { isHit, isWithinBounds } from "./helpers";
 
@@ -55,8 +55,14 @@ const fire = (state: State, action: Action<any>): State => {
       ? [
         ...state.shots,
         {
-          x: state.player.geo.pos.x + state.player.geo.width / 2 - Constants.SHOT_WIDTH / 2,
-          y: state.player.geo.pos.y
+          geo: {
+            pos: {
+              x: state.player.geo.pos.x + state.player.geo.width / 2 - Constants.SHOT_WIDTH / 2,
+              y: state.player.geo.pos.y
+            },
+            width: Constants.SHOT_WIDTH,
+            height: Constants.SHOT_HEIGHT
+          }
         }
       ]
       : state.shots
@@ -65,7 +71,7 @@ const fire = (state: State, action: Action<any>): State => {
 
 const tick = (state: State, action: Action<any>): State => {
   const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader, eachShot));
-  const shotHit = (shot: Position) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
+  const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
 
   const newHp = (invader: Invader) => 
     invader.hp > 0 && invaderHit(invader)
@@ -79,9 +85,18 @@ const tick = (state: State, action: Action<any>): State => {
       cooldown: state.player.cooldown - 1
     },
     shots: state.shots
-      .filter(eachShot => eachShot.y > 0)
+      .filter(eachShot => eachShot.geo.pos.y > 0)
       .filter(eachShot => !shotHit(eachShot))
-      .map(eachShot => ({ ...eachShot, y: eachShot.y - Constants.SHOT_DY })),
+      .map(eachShot => ({
+        ...eachShot, 
+        geo: {
+          ...eachShot.geo, 
+          pos: {
+            ...eachShot.geo.pos,
+            y: eachShot.geo.pos.y - Constants.SHOT_DY
+          }
+        }
+      })),
     invaders: state.invaders
       .filter(eachInvader => eachInvader.geo.pos.y + eachInvader.geo.height < Constants.HEIGHT)
       .filter(eachInvader => eachInvader.hp > 0)

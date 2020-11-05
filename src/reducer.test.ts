@@ -17,7 +17,13 @@ test('updates on tick', () => {
       }
     ],
     shots: [
-      { x: 50, y: 500 + Constants.SHOT_DY }
+      {
+        geo: {
+          pos: { x: 50, y: 500 + Constants.SHOT_DY },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -42,7 +48,13 @@ test('updates on tick', () => {
       }
     ],
     shots: [
-      { x: 50, y: 500 }
+      {
+        geo: {
+          pos: { x: 50, y: 500 },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       ...state.player,
@@ -67,7 +79,13 @@ test('hit logic', () => {
       }
     ],
     shots: [
-      { x: 50, y: 500 }
+      {
+        geo: {
+          pos: { x: 50, y: 500 },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -117,7 +135,13 @@ test('hit logic - just toucing invader lower left', () => {
       }
     ],
     shots: [
-      { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight }
+      {
+        geo: {
+          pos: { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -167,7 +191,13 @@ test('hit logic - just toucing invader lower right', () => {
       }
     ],
     shots: [
-      { x: 50 + invaderWidth, y: 500 + invaderHeight }
+      {
+        geo: {
+          pos: { x: 50 + invaderWidth, y: 500 + invaderHeight },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -217,7 +247,13 @@ test('hit logic - just toucing invader upper left edge case', () => {
       }
     ],
     shots: [
-      { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight - Constants.SHOT_DY}
+      {
+        geo: {
+          pos: { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight - Constants.SHOT_DY },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -267,7 +303,13 @@ test('hit logic - just toucing invader upper right edge case', () => {
       }
     ],
     shots: [
-      { x: 50 + invaderWidth, y: 500 + invaderHeight - Constants.SHOT_DY}
+      {
+        geo: {
+          pos: { x: 50 + invaderWidth, y: 500 + invaderHeight - Constants.SHOT_DY },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -316,7 +358,13 @@ test('hit logic - distance too large', () => {
       }
     ],
     shots: [
-      { x: 50, y: 500 + invaderHeight - Constants.SHOT_DY}
+      {
+        geo: {
+          pos: { x: 50, y: 500 + invaderHeight - Constants.SHOT_DY },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       cooldown: 10,
@@ -341,7 +389,13 @@ test('hit logic - distance too large', () => {
       }
     ],
     shots: [
-      { x: 50, y: 500 + invaderHeight - 2*Constants.SHOT_DY}
+      {
+        geo: {
+          pos: { x: 50, y: 500 + invaderHeight - 2*Constants.SHOT_DY },
+          height: Constants.SHOT_HEIGHT,
+          width: Constants.SHOT_WIDTH
+        }
+      }
     ],
     player: {
       ...state.player,
