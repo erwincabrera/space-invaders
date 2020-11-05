@@ -87,21 +87,20 @@ const App = () => {
       }
     })
 
-  }, [audioRefs.invaderDeath, audioRefs.photonTorpedos, state.invaders, state.player.cooldown])
-  
+    if (isGameOver(state)) {
+      audioRefs.invaderDeath.current.play()
+    }
 
-  if (state.isStarted === false) {
-    return <StartScreen handleStart={() => dispatch(Actions.start())} />
-  }
-
-  if (isGameOver(state)) {
-    return <div></div>
-  }
+  })
 
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
-      <GameCanvas {...state}></GameCanvas>
+      {state.isStarted === false
+        ? <StartScreen handleStart={() => dispatch(Actions.start())} />
+        : isGameOver(state)
+        ? <div></div>
+        : <GameCanvas {...state}></GameCanvas>}
     </div>
   )
 }
