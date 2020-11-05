@@ -1,6 +1,14 @@
 import * as Constants from "./Constants";
-import { Invader, Position, Shot } from "./types";
+import { Geometry, Invader, Position, Shot, State } from "./types";
 
+export const isOverlapping = (a: Geometry, b: Geometry): boolean => {
+  return b.pos.x - a.pos.x <= a.width &&
+    b.pos.x - a.pos.x >= -b.width &&
+    b.pos.y - a.pos.y <= a.height &&
+    b.pos.y - a.pos.y >= -b.height
+}
+
+// takes into account possible "misses" due to discrete shot and invader movements
 export const isHit = (invader: Invader, shot: Shot): boolean => {
   return shot.geo.pos.x - invader.geo.pos.x <= invader.geo.width &&
     shot.geo.pos.x - invader.geo.pos.x >= -Constants.SHOT_WIDTH &&

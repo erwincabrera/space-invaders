@@ -70,8 +70,8 @@ const fire = (state: State, action: Action<any>): State => {
 }
 
 const tick = (state: State, action: Action<any>): State => {
-  const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader, eachShot));
-  const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
+  const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader.geo, eachShot.geo));
+  const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader.geo, shot.geo));
 
   const newHp = (invader: Invader) => 
     invader.hp > 0 && invaderHit(invader)
