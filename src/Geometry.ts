@@ -24,9 +24,9 @@ export const isOverlapping = (a: Geometry, b: Geometry): boolean => {
     b.pos.y - a.pos.y >= -b.height
 }
 
-export const isWithinBounds = (pos: Position, width: number, height: number, maxWidth: number, maxHeight: number): boolean => {
-  return pos.y + height < maxHeight &&
-    pos.y > 0 &&
-    pos.x + width < maxWidth &&
-    pos.x > 0;
+export const isWithinBounds = (geo: Geometry, maxWidth: number, maxHeight: number): boolean => {
+  return geo.pos.y + geo.height < maxHeight &&
+    geo.pos.y > 0 &&
+    geo.pos.x + geo.width < maxWidth &&
+    geo.pos.x > 0;
 }

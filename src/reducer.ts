@@ -22,20 +22,21 @@ export const initialState: State = {
 
 const move = (state: State, action: Action<MovePayload>): State => {
   const player = state.player;
-  const newPos = {
-    x: state.player.geo.pos.x + action.payload.dx,
-    y: state.player.geo.pos.y + action.payload.dy
+  const newGeo = {
+    ...player.geo,
+    pos: {
+      ...player.geo.pos,
+      x: state.player.geo.pos.x + action.payload.dx,
+      y: state.player.geo.pos.y + action.payload.dy
+    }
   }
 
-  if (isWithinBounds(newPos, player.geo.width, player.geo.height, Constants.WIDTH, Constants.HEIGHT)) {
+  if (isWithinBounds(newGeo, Constants.WIDTH, Constants.HEIGHT)) {
     return {
       ...state,
       player: {
         ...state.player,
-        geo: {
-          ...state.player.geo,
-          pos: newPos
-        }
+        geo: newGeo
       }
     }
   }
