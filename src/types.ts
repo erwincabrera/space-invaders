@@ -15,6 +15,12 @@ export interface Position {
   y: number
 }
 
+export interface Geometry {
+  pos: Position,
+  width: number;
+  height: number;
+}
+
 export interface Player {
   pos: Position;
   cooldown: number;
