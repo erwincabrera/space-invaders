@@ -71,3 +71,10 @@ export const createInvader = (pos: Position, width: number, height: number): Act
     }
   }
 }
+
+export const newGame = (): Action<any> => {
+  return {
+    type: 'NEW_GAME',
+    payload: {}
+  }
+}

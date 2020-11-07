@@ -134,6 +134,10 @@ export const reducer = (state: State, action: Action<any>): State => {
   if (action.type === 'START') {
     return {...state, isStarted: true}
   }
+
+  if (action.type === 'NEW_GAME') {
+    return {...initialState, isStarted: true}
+  }
   
   if (state.isStarted === false) {
     return state;
