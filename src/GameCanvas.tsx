@@ -25,15 +25,13 @@ const style = {
 
 type Props = State;
 
-function Player()
-{
+function Player() {
   mxShape.call(this);
 };
 
 mxUtils.extend(Player, mxShape);
 
-Player.prototype.paintBackground = function(c, x, y, w, h)
-{
+Player.prototype.paintBackground = function(c, x, y, w, h) {
   c.translate(x, y);
   c.setStrokeColor('gray');
 
@@ -62,6 +60,23 @@ Player.prototype.paintBackground = function(c, x, y, w, h)
 };
 
 mxCellRenderer.registerShape('player', Player);
+
+function Shot() {
+  mxShape.call(this);
+};
+
+mxUtils.extend(Shot, mxShape);
+
+Shot.prototype.paintBackground = function(c, x, y, w, h) {
+  c.translate(x, y);
+  c.ellipse(0, 0, w, h);
+  c.setStrokeWidth(3);
+  c.setStrokeColor('purple');
+  c.setFillColor('violet');
+  c.fillAndStroke();
+}
+
+mxCellRenderer.registerShape('shot', Shot);
 
 class GameCanvas extends Component<Props> {
   private graph;
@@ -93,7 +108,7 @@ class GameCanvas extends Component<Props> {
     this.shots = [];
     this.props.shots.forEach(eachShot => {
       this.shots.push(graph.insertVertex(parent, null, "", eachShot.geo.pos.x, eachShot.geo.pos.y, 
-        Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT));
+        Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT, 'shape=shot'));
     })
 
     // TODO: move the cells
@@ -133,10 +148,6 @@ class GameCanvas extends Component<Props> {
         this.player = graph.insertVertex(parent, null, null, pos.x, pos.y, width, height, 'shape=player;');
 
         this.shots = [];
-        this.props.shots.forEach(eachShot => {
-          this.shots.push(graph.insertVertex(parent, null, "", eachShot.geo.pos.x, eachShot.geo.pos.y, 
-            Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT));
-        })
 
         this.invaders = [];
         this.props.invaders.forEach(eachInvader => {
