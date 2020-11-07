@@ -78,6 +78,22 @@ Shot.prototype.paintBackground = function(c, x, y, w, h) {
 
 mxCellRenderer.registerShape('shot', Shot);
 
+function Invader() {
+  mxShape.call(this);
+};
+
+mxUtils.extend(Invader, mxShape);
+
+Invader.prototype.paintBackground = function(c, x, y, w, h) {
+  c.translate(x, y);
+  c.ellipse(0, 0, w, h);
+  c.setFillColor('gray');
+  c.setStrokeColor('gray');
+  c.fillAndStroke();
+}
+
+mxCellRenderer.registerShape('invader', Invader);
+
 class GameCanvas extends Component<Props> {
   private graph;
   private player;
@@ -116,7 +132,7 @@ class GameCanvas extends Component<Props> {
     this.invaders = [];
     this.props.invaders.forEach(eachInvader => {
       this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.geo.pos.x, eachInvader.geo.pos.y, 
-        eachInvader.geo.width, eachInvader.geo.height))
+        eachInvader.geo.width, eachInvader.geo.height, 'shape=invader'))
     })
   }
 
