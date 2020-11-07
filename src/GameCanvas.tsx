@@ -14,6 +14,8 @@ const mxGraph = myGraph.mxGraph;
 const mxClient = myGraph.mxClient;
 const mxUtils = myGraph.mxUtils;
 const mxEvent = myGraph.mxEvent;
+const mxShape = myGraph.mxShape;
+const mxCellRenderer = myGraph.mxCellRenderer;
 
 const style = {
   margin: "0 auto",
@@ -22,6 +24,44 @@ const style = {
 }
 
 type Props = State;
+
+function Player()
+{
+  mxShape.call(this);
+};
+
+mxUtils.extend(Player, mxShape);
+
+Player.prototype.paintBackground = function(c, x, y, w, h)
+{
+  c.translate(x, y);
+  c.setStrokeColor('gray');
+
+  c.begin();
+  c.setStrokeWidth(5);
+  c.moveTo(0, 0);
+  c.lineTo(0, h);
+  c.moveTo(w, 0);
+  c.lineTo(w, h);
+  c.stroke();
+
+  c.ellipse(0, 0, w, h);
+  c.setFillColor('gray');
+  c.setStrokeWidth(1);
+  c.setStrokeColor('black')
+  c.fillAndStroke();
+
+  const bridgeWidth = w / 2.4;
+  const bridgeHeight = h / 2;
+  const bridgeX = w / 2 - bridgeWidth / 2;
+  const bridgeY = h / 2 - bridgeHeight / 2;
+  c.ellipse(bridgeX, bridgeY, bridgeWidth, bridgeHeight);
+  c.setGradient('white', 'gray', bridgeX, bridgeY, bridgeWidth, bridgeHeight);
+  c.setStrokeColor('gray');
+  c.fillAndStroke();
+};
+
+mxCellRenderer.registerShape('player', Player);
 
 class GameCanvas extends Component<Props> {
   private graph;
@@ -90,7 +130,7 @@ class GameCanvas extends Component<Props> {
       graph.getModel().beginUpdate();
       try {
         const { pos, width, height } = this.props.player.geo;
-        this.player = graph.insertVertex(parent, null, "USS\nEnterprise", pos.x, pos.y, width, height);
+        this.player = graph.insertVertex(parent, null, null, pos.x, pos.y, width, height, 'shape=player;');
 
         this.shots = [];
         this.props.shots.forEach(eachShot => {
