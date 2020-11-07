@@ -3,21 +3,24 @@ body {
   background: black;
 }
 
-.start-screen {
-  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
+.start-screen-container, .end-screen-container {
+  color: white;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.start-text {
-  color: white;
+.start-screen-container {
+  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
+}
+
+.start-screen, .end-screen {
   background-color: rgba(30, 30, 30, 0.65);
   text-align: center;
   width: 20em;
   padding: 1em;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 ul {
@@ -44,10 +47,14 @@ ul li p {
 
 button {
   font-size: 1.3rem;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: inherit;
   background-color: black;
   color: white;
   padding: .35em;
   border: none;
   cursor: pointer;
+}
+
+.end-screen button:hover {
+  background-color: gray;
 }

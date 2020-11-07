@@ -2,8 +2,8 @@ import React from 'react'
 
 export const StartScreen = ({ handleStart }) => {
   return (
-    <div className='start-screen'>
-      <div className='start-text'>
+    <div className='start-screen-container'>
+      <div className='start-screen'>
         <section className='controls'>
           <h1>Controls</h1>
           <ul>
