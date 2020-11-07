@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
 import { isGameOver } from './helpers';
+import { EndScreen } from './components/EndScreen';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./audio/photon-torpedos.mp3'),
@@ -100,7 +101,7 @@ const App = () => {
       {state.isStarted === false
         ? <StartScreen handleStart={() => dispatch(Actions.start())} />
         : isGameOver(state)
-        ? <div></div>
+        ? <EndScreen />
         : <GameCanvas {...state}></GameCanvas>}
     </div>
   )
