@@ -70,7 +70,7 @@ const App = () => {
       if (isKeyDown[Constants.KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(Actions.fire())
 
       if (Math.random() < .05) {
-        dispatch(Actions.createInvader(getRandomInvaderPosition(0, Constants.WIDTH), 20, 20))
+        dispatch(Actions.createInvader({ pos: getRandomInvaderPosition(0, Constants.WIDTH), height: 20, width: 20 }))
       }
     }
 
