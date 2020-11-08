@@ -116,17 +116,10 @@ const tick = (state: State, action: Action<any>): State => {
   }
 }
 
-const createInvader = (state: State, action: Action<any>): State => {  
+const addInvader = (state: State, action: Action<Invader>): State => {  
   return {
     ...state,
-    invaders: state.invaders.concat([{
-      geo: {
-        pos: action.payload.pos,
-        width: action.payload.width,
-        height: action.payload.height,
-      },
-      hp: 1
-    }])
+    invaders: state.invaders.concat(action.payload)
   }
 }
 
@@ -154,8 +147,8 @@ export const reducer = (state: State, action: Action<any>): State => {
       return fire(state, action)
     case 'TICK':
       return tick(state, action)
-    case 'CREATE_INVADER':
-      return createInvader(state, action)
+    case 'ADD_INVADER':
+      return addInvader(state, action)
     default:
       return initialState;
   }

@@ -3,8 +3,7 @@ import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
-import { Sounds } from './types';
-import { Position } from "./Geometry";
+import { Invader, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
@@ -16,10 +15,20 @@ const audioMap: Record<Sounds, any> = {
   invaderDeath: require('./audio/invader-death.mp3'),
 };
 
-const getRandomInvaderPosition = (min: number, max: number): Position => {
+const getRandomInvader = (): Invader => {
+  const width = 20;
+  const height = 20;
+
   return {
-    x: getRandom(min, max),
-    y: 0
+    geo: {
+      pos: {
+        x: getRandom(0 + width / 2, Constants.WIDTH - width / 2),
+        y: 0
+      },
+      width,
+      height
+    },
+    hp: 1
   }
 }
 
@@ -70,7 +79,7 @@ const App = () => {
       if (isKeyDown[Constants.KEYS.WEAPONS.PHOTON_TORPEDOS]) dispatch(Actions.fire())
 
       if (Math.random() < .05) {
-        dispatch(Actions.createInvader({ pos: getRandomInvaderPosition(0, Constants.WIDTH), height: 20, width: 20 }))
+        dispatch(Actions.addInvader(getRandomInvader()))
       }
     }
 

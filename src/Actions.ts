@@ -1,5 +1,4 @@
-import { Action, MovePayload } from "./types";
-import { Geometry } from "./Geometry";
+import { Action, Invader, MovePayload } from "./types";
 import * as Constants from "./Constants";
 
 export const start = (): Action<any> => {
@@ -63,12 +62,10 @@ export const tick = (): Action<any> => {
   }
 }
 
-export const createInvader = (geo: Geometry): Action<any> => {
+export const addInvader = (invader: Invader): Action<Invader> => {
   return {
-    type: 'CREATE_INVADER',
-    payload: {
-      pos: geo.pos, width: geo.width, height: geo.height
-    }
+    type: 'ADD_INVADER',
+    payload: invader
   }
 }
 
