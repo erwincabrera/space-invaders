@@ -2,6 +2,10 @@ import * as Constants from "./Constants";
 import { isOverlapping } from "./Geometry";
 import { Invader, Shot, State } from "./types";
 
+export const getRandom = (min: number, max: number): number => {
+  return Math.random() * (max - min) + min;
+}
+
 // takes into account possible "misses" due to discrete shot and invader movements
 export const isHit = (invader: Invader, shot: Shot): boolean => {
   return shot.geo.pos.x - invader.geo.pos.x <= invader.geo.width &&

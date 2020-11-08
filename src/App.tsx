@@ -8,7 +8,7 @@ import { Position } from "./Geometry";
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
-import { isGameOver } from './helpers';
+import { getRandom, isGameOver } from './helpers';
 import { EndScreen } from './components/EndScreen';
 
 const audioMap: Record<Sounds, any> = {
@@ -18,7 +18,7 @@ const audioMap: Record<Sounds, any> = {
 
 const getRandomInvaderPosition = (min: number, max: number): Position => {
   return {
-    x: Math.random() * (max - min) + min,
+    x: getRandom(min, max),
     y: 0
   }
 }
