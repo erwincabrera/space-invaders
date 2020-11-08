@@ -58,3 +58,8 @@ button {
 .end-screen button:hover {
   background-color: gray;
 }
+
+.graph-container {
+  min-height: 100vh;
+  background: black url("images/bg-game.jpg") center/cover no-repeat fixed;
+}

@@ -199,7 +199,11 @@ class GameCanvas extends Component<Props> {
   }
 
   render() {
-    return <div className="graph-container" ref="divGraph" id="divGraph" style={style}/>;
+    return (
+      <div className="graph-container">
+        <div ref="divGraph" id="divGraph" style={style}/>
+      </div>
+    )
   }
 }
 
