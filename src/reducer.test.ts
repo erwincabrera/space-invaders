@@ -80,7 +80,7 @@ test('hit logic', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 1,
-        score: 1
+        score: 2
       }
     ],
     shots: [
@@ -112,14 +112,15 @@ test('hit logic', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 0,
-        score: 1
+        score: 2
       }
     ],
     shots: [],
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: state.score + 2
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)
@@ -178,7 +179,8 @@ test('hit logic - just toucing invader lower left', () => {
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: 1
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)
@@ -237,7 +239,8 @@ test('hit logic - just toucing invader lower right', () => {
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: 1
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)
@@ -296,7 +299,8 @@ test('hit logic - just toucing invader upper left edge case', () => {
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: 1
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)
@@ -355,7 +359,8 @@ test('hit logic - just toucing invader upper right edge case', () => {
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: 1
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)
@@ -421,7 +426,8 @@ test('hit logic - distance too large', () => {
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: 0
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)
@@ -460,7 +466,8 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
     player: {
       ...state.player,
       cooldown: 9
-    }
+    },
+    score: 0
   }
 
   expect(reducer(state, Actions.tick())).toEqual(expected)

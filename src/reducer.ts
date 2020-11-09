@@ -81,12 +81,28 @@ const tick = (state: State, action: Action<any>): State => {
       ? invader.hp - 1 
       : invader.hp
 
+  const newInvaders = state.invaders
+    .filter(eachInvader => eachInvader.geo.pos.y + eachInvader.geo.height < Constants.HEIGHT)
+    .filter(eachInvader => eachInvader.hp > 0)
+    .map(eachInvader => ({
+      ...eachInvader,
+      geo: {
+        ...eachInvader.geo,
+        pos: {
+          ...eachInvader.geo.pos,
+          y: newHp(eachInvader) > 0 ? eachInvader.geo.pos.y + Constants.INVADER_DY : eachInvader.geo.pos.y
+        }
+      },
+      hp: newHp(eachInvader)
+  }))
+
   return {
     ...state,
     player: {
       ...state.player,
-      cooldown: state.player.cooldown - 1
+      cooldown: state.player.cooldown - 1,
     },
+    score: state.score + newInvaders.reduce((acc, curr) => acc + (curr.hp === 0 ? curr.score : 0), 0),
     shots: state.shots
       .filter(eachShot => eachShot.geo.pos.y > 0)
       .filter(eachShot => !shotHit(eachShot))
@@ -100,20 +116,7 @@ const tick = (state: State, action: Action<any>): State => {
           }
         }
       })),
-    invaders: state.invaders
-      .filter(eachInvader => eachInvader.geo.pos.y + eachInvader.geo.height < Constants.HEIGHT)
-      .filter(eachInvader => eachInvader.hp > 0)
-      .map(eachInvader => ({
-        ...eachInvader,
-        geo: {
-          ...eachInvader.geo,
-          pos: {
-            ...eachInvader.geo.pos,
-            y: newHp(eachInvader) > 0 ? eachInvader.geo.pos.y + Constants.INVADER_DY : eachInvader.geo.pos.y
-          }
-        },
-        hp: newHp(eachInvader)
-      }))
+    invaders: newInvaders
   }
 }
 
