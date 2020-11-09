@@ -5,6 +5,7 @@ import { isWithinBounds } from "./Geometry";
 
 export const initialState: State = {
   isStarted: false,
+  score: 0,
   player: {
     geo: {
       width: 75,

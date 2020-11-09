@@ -6,6 +6,7 @@ import * as Constants from './Constants'
 test('updates on tick', () => {
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -70,6 +71,7 @@ test('updates on tick', () => {
 test('hit logic', () => {
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -128,6 +130,7 @@ test('hit logic - just toucing invader lower left', () => {
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -186,6 +189,7 @@ test('hit logic - just toucing invader lower right', () => {
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -244,6 +248,7 @@ test('hit logic - just toucing invader upper left edge case', () => {
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -302,6 +307,7 @@ test('hit logic - just toucing invader upper right edge case', () => {
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -359,6 +365,7 @@ test('hit logic - distance too large', () => {
   const invaderHeight = 20;
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {
@@ -423,6 +430,7 @@ test('hit logic - distance too large', () => {
 test('hit logic - when HP is 0, destroy on next tick', () => {
   const state: State = {
     isStarted: true,
+    score: 0,
     invaders: [
       {
         geo: {

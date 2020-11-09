@@ -20,6 +20,7 @@ export interface Player {
 export interface Invader {
   geo: Geometry;
   hp: number;
+  score: number;
 }
 
 export interface Shot {
@@ -29,6 +30,7 @@ export interface Shot {
 export interface State {
   isStarted: boolean;
   player: Player,
+  score: number;
   shots: Shot[],
   invaders: Invader[]
 }
