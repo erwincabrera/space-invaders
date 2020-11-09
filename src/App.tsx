@@ -111,7 +111,7 @@ const App = () => {
       {state.isStarted === false
         ? <StartScreen handleStart={() => dispatch(Actions.start())} />
         : isGameOver(state)
-        ? <EndScreen handleNewGame={() => dispatch(Actions.newGame())}/>
+        ? <EndScreen handleNewGame={() => dispatch(Actions.newGame())} score={state.score}/>
         : <GameCanvas {...state}></GameCanvas>}
     </div>
   )
