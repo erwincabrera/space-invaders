@@ -28,7 +28,8 @@ const getRandomInvader = (): Invader => {
       width,
       height
     },
-    hp: 1
+    hp: 1,
+    score: 1
   }
 }
 

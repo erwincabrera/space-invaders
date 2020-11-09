@@ -17,10 +17,13 @@ body {
 }
 
 .start-screen, .end-screen {
-  background-color: rgba(30, 30, 30, 0.65);
   text-align: center;
   width: 20em;
   padding: 1em;
+}
+
+.start-screen {
+  background-color: rgba(30, 30, 30, 0.65);
 }
 
 ul {

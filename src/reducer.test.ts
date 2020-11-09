@@ -13,7 +13,8 @@ test('updates on tick', () => {
           width: 20,
           pos: { x: 50, y: 500 - Constants.INVADER_DY},
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -44,7 +45,8 @@ test('updates on tick', () => {
           width: 20,
           pos: { x: 50, y: 500},
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -75,7 +77,8 @@ test('hit logic', () => {
           width: 20,
           pos: { x: 50, y: 500 },
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -106,7 +109,8 @@ test('hit logic', () => {
           width: 20,
           pos: { x: 50, y: 500 },
         },
-        hp: 0
+        hp: 0,
+        score: 1
       }
     ],
     shots: [],
@@ -131,7 +135,8 @@ test('hit logic - just toucing invader lower left', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 },
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -162,7 +167,8 @@ test('hit logic - just toucing invader lower left', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 },
         },
-        hp: 0
+        hp: 0,
+        score: 1
       }
     ],
     shots: [],
@@ -187,7 +193,8 @@ test('hit logic - just toucing invader lower right', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 },
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -218,7 +225,8 @@ test('hit logic - just toucing invader lower right', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 },
         },
-        hp: 0
+        hp: 0,
+        score: 1
       }
     ],
     shots: [],
@@ -243,7 +251,8 @@ test('hit logic - just toucing invader upper left edge case', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 + Constants.INVADER_DY},
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -274,7 +283,8 @@ test('hit logic - just toucing invader upper left edge case', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 + Constants.INVADER_DY},
         },
-        hp: 0
+        hp: 0,
+        score: 1
       }
     ],
     shots: [],
@@ -299,7 +309,8 @@ test('hit logic - just toucing invader upper right edge case', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 + Constants.INVADER_DY},
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -330,7 +341,8 @@ test('hit logic - just toucing invader upper right edge case', () => {
           width: invaderWidth,
           pos: { x: 50, y: 500 + Constants.INVADER_DY},
         },
-        hp: 0
+        hp: 0,
+        score: 1
       }
     ],
     shots: [],
@@ -354,7 +366,8 @@ test('hit logic - distance too large', () => {
           width: 20,
           pos: { x: 50, y: 500 + Constants.INVADER_DY + 0.5},
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -385,7 +398,8 @@ test('hit logic - distance too large', () => {
           width: 20,
           pos: { x: 50, y: 500 + 2*Constants.INVADER_DY + 0.5},
         },
-        hp: 1
+        hp: 1,
+        score: 1
       }
     ],
     shots: [
@@ -416,7 +430,8 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
           width: 20,
           pos: { x: 50, y: 500 },
         },
-        hp: 0
+        hp: 0,
+        score: 1
       }
     ],
     shots: [],
