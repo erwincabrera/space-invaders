@@ -5,7 +5,7 @@ body {
   background: black;
 }
 
-.start-screen-container, .end-screen-container {
+.start-screen-container {
   color: white;
   min-height: 100vh;
   display: flex;
@@ -18,7 +18,7 @@ body {
   background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
 }
 
-.start-screen, .end-screen {
+.start-screen {
   text-align: center;
   width: 20em;
   padding: 1em;
@@ -60,8 +60,39 @@ button {
   cursor: pointer;
 }
 
+
+/* || End screen */
+
+.end-screen {
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .end-screen button:hover {
   background-color: gray;
+}
+
+.end-screen ol {
+  max-height: 40vh;
+  overflow-y: auto;
+  margin: 0 auto;
+  padding: 0;
+  padding-right: 1em;
+  width: 40em;
+}
+
+.end-screen li {
+  display: flex;
+  padding-bottom: .5em;
+}
+
+.end-screen span.score {
+  margin-left: auto;
 }
 
 .graph-container {

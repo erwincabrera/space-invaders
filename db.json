@@ -1,3 +1,83 @@
 {
-
+  "users": [
+    {
+      "username": "user1",
+      "score": 1
+    },
+    {
+      "username": "user2",
+      "score": 2
+    },
+    {
+      "username": "user3",
+      "score": 3
+    },
+    {
+      "username": "user4",
+      "score": 4
+    },
+    {
+      "username": "user5",
+      "score": 5
+    },
+    {
+      "username": "user1",
+      "score": 1
+    },
+    {
+      "username": "user2",
+      "score": 2
+    },
+    {
+      "username": "user3",
+      "score": 3
+    },
+    {
+      "username": "user4",
+      "score": 4
+    },
+    {
+      "username": "user5",
+      "score": 5
+    },
+    {
+      "username": "user1",
+      "score": 1
+    },
+    {
+      "username": "user2",
+      "score": 2
+    },
+    {
+      "username": "user3",
+      "score": 3
+    },
+    {
+      "username": "user4",
+      "score": 4
+    },
+    {
+      "username": "user5",
+      "score": 5
+    },{
+      "username": "user1",
+      "score": 1
+    },
+    {
+      "username": "user2",
+      "score": 2
+    },
+    {
+      "username": "user3",
+      "score": 3
+    },
+    {
+      "username": "user4",
+      "score": 4
+    },
+    {
+      "username": "user5",
+      "score": 5
+    }
+  ]
 }

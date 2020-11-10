@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
@@ -9,6 +9,7 @@ import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
 import { getRandom, isGameOver } from './helpers';
 import { EndScreen } from './components/EndScreen';
+import axios from 'axios';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./audio/photon-torpedos.mp3'),
@@ -41,11 +42,22 @@ const KEY_LIST = Object.values(Constants.KEYS).reduce((acc, curr) =>
 const isKeyDown = {}
 
 const App = () => {
+  const [scores, setScores] = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
   const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
     invaderDeath: React.useRef(),
     photonTorpedos: React.useRef()
   }
+
+  useEffect(() => {
+    if (isGameOver(state)) {
+      if (scores.length === 0) {
+        axios.get(`http://localhost:3001/users`).then(res => {
+        setScores(res.data);
+      })
+      }
+    }
+  })
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
@@ -111,7 +123,11 @@ const App = () => {
       {state.isStarted === false
         ? <StartScreen handleStart={() => dispatch(Actions.start())} />
         : isGameOver(state)
-        ? <EndScreen handleNewGame={() => dispatch(Actions.newGame())} score={state.score}/>
+        ? <EndScreen 
+            handleNewGame={() => dispatch(Actions.newGame())} 
+            score={state.score}
+            scores={scores}
+          />
         : <GameCanvas {...state}></GameCanvas>}
     </div>
   )
