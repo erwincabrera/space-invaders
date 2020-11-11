@@ -5,27 +5,26 @@ body {
   background: black;
 }
 
-.start-screen-container {
+
+/* || Start screen */
+
+.start-screen {
   color: white;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+
   justify-content: center;
   align-items: center;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.start-screen-container {
   background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
 }
 
-.start-screen {
-  text-align: center;
+.controls {
+  background-color: rgba(30, 30, 30, 0.65);
   width: 20em;
   padding: 1em;
-}
-
-.start-screen {
-  background-color: rgba(30, 30, 30, 0.65);
 }
 
 ul {
@@ -70,6 +69,7 @@ button {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  
   justify-content: space-around;
 }
 
