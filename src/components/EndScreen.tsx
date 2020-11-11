@@ -2,7 +2,7 @@ import React from 'react'
 
 export const EndScreen = ({ handleNewGame, score, scores }) => {
   return (
-      <div className='end-screen'>
+      <div className='screen end-screen'>
         <section>
           <h1>Game Over</h1>
           <h2>Your score: {score}</h2>

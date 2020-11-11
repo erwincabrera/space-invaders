@@ -1,21 +1,40 @@
 @import-normalize;
 
+
+/* || General styles */
+
 body {
   margin: 0;
   background: black;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.screen {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font-size: 1.3rem;
+  font-family: inherit;
+  background-color: black;
+  color: white;
+  padding: .35em;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: gray;
 }
 
 
 /* || Start screen */
 
 .start-screen {
-  color: white;
-  font-family: 'Courier New', Courier, monospace;
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-
   justify-content: center;
   align-items: center;
   background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
@@ -33,14 +52,14 @@ ul {
   margin-bottom: 3em;
 }
 
-ul li {
+li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em;
 }
 
-ul li p {
+li p {
   margin: 0;
 }
 
@@ -49,32 +68,11 @@ ul li p {
   padding: .25em;
 }
 
-button {
-  font-size: 1.3rem;
-  font-family: inherit;
-  background-color: black;
-  color: white;
-  padding: .35em;
-  border: none;
-  cursor: pointer;
-}
-
 
 /* || End screen */
 
 .end-screen {
-  color: white;
-  font-family: 'Courier New', Courier, monospace;
-  text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  
   justify-content: space-around;
-}
-
-.end-screen button:hover {
-  background-color: gray;
 }
 
 .end-screen ol {
