@@ -125,7 +125,8 @@ const App = () => {
         : isGameOver(state)
         ? <EndScreen 
             handleNewGame={() => dispatch(Actions.newGame())} 
-            score={state.score}
+            handleSave={() => 0 }
+            playerScore={state.score}
             scores={scores}
           />
         : <GameCanvas {...state}></GameCanvas>}

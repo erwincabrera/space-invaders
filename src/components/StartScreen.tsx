@@ -3,7 +3,7 @@ import React from 'react'
 export const StartScreen = ({ handleStart }) => {
   return (
     <div className='screen start-screen'>
-      <section className='controls'>
+      <section className='panel panel-start'>
         <h1>Controls</h1>
         <ul>
           <li>

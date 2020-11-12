@@ -15,9 +15,16 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
+}
+
+.panel {
+  background-color: rgba(30, 30, 30, 0.65);
+  padding: 1em;
 }
 
 button {
+  display: inline-block;
   font-size: 1.3rem;
   font-family: inherit;
   background-color: black;
@@ -37,13 +44,10 @@ button:hover {
 .start-screen {
   justify-content: center;
   align-items: center;
-  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
 }
 
-.controls {
-  background-color: rgba(30, 30, 30, 0.65);
+.panel-start {
   width: 20em;
-  padding: 1em;
 }
 
 ul {
@@ -72,16 +76,20 @@ li p {
 /* || End screen */
 
 .end-screen {
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
 }
 
-.end-screen ol {
-  max-height: 40vh;
+.panel-end {
+  width: 40em;
+}
+
+.end-screen ul {
+  height: 30vh;
   overflow-y: auto;
   margin: 0 auto;
   padding: 0;
   padding-right: 1em;
-  width: 40em;
 }
 
 .end-screen li {
@@ -91,6 +99,17 @@ li p {
 
 .end-screen span.score {
   margin-left: auto;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  max-width: 10em;
+  margin: 0 auto;
+}
+
+.buttons button {
+  margin-bottom: .25em;
 }
 
 .graph-container {
