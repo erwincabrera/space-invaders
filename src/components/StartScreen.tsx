@@ -1,33 +1,33 @@
 import React from 'react'
+import { ControlsTable } from './ControlsTable'
 
 export const StartScreen = ({ handleStart }) => {
   return (
     <div className='screen start-screen'>
       <section className='panel panel-start'>
-        <h1>Controls</h1>
-        <ul>
-          <li>
-            <p className='movement-key'>W</p>
-            <p>Move up</p>
-          </li>
-          <li>
-            <p className='movement-key'>S</p>
-            <p>Move down</p>
-          </li>
-          <li>
-            <p className='movement-key'>A</p>
-            <p>Move left</p>
-          </li>
-          <li>
-            <p className='movement-key'>D</p>
-            <p>Move right</p>
-          </li>
-          <li>
-            <p className='movement-key'>Spacebar</p>
-            <p>Fire photon torpedos</p>
-          </li>
-        </ul>
-        <button onClick={handleStart}>Start</button>
+        <ControlsTable keys={[
+          {
+            key: "W",
+            description: "Move up"
+          },
+          {
+            key: "S",
+            description: "Move down"
+          },
+          {
+            key: "A",
+            description: "Move left"
+          },
+          {
+            key: "D",
+            description: "Move right"
+          },
+          {
+            key: "Spacebar",
+            description: "Fire photon torpedos"
+          }
+        ]}/>
+        <button style={{marginTop: '3em'}} onClick={handleStart}>Start</button>
       </section>
     </div>
   )

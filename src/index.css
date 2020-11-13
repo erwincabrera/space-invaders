@@ -10,17 +10,13 @@ body {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.screen {
+th {
+  font-size: 2rem;
   text-align: center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
 }
 
-.panel {
-  background-color: rgba(30, 30, 30, 0.65);
-  padding: 1em;
+td {
+  padding: 1em 0;
 }
 
 button {
@@ -38,6 +34,18 @@ button:hover {
   background-color: gray;
 }
 
+.screen {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
+}
+
+.panel {
+  background-color: rgba(25, 25, 25, 0.65);
+  padding: 1em;
+}
 
 /* || Start screen */
 
@@ -47,24 +55,7 @@ button:hover {
 }
 
 .panel-start {
-  width: 20em;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-bottom: 3em;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1em;
-}
-
-li p {
-  margin: 0;
+  width: 22em;
 }
 
 .movement-key {
@@ -84,21 +75,11 @@ li p {
   width: 40em;
 }
 
-.end-screen ul {
-  height: 30vh;
-  overflow-y: auto;
-  margin: 0 auto;
-  padding: 0;
+.high-scores-container {
+  margin-top: 1em;
   padding-right: 1em;
-}
-
-.end-screen li {
-  display: flex;
-  padding-bottom: .5em;
-}
-
-.end-screen span.score {
-  margin-left: auto;
+  height: 45vh;
+  overflow-y: auto;
 }
 
 .buttons {
