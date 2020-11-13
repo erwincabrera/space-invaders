@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import * as GraphModule from "mxgraph/javascript/dist/build";
 import { State } from "./types";
 import * as Constants from "./Constants";
@@ -99,10 +98,12 @@ class GameCanvas extends Component<Props> {
   private player;
   private shots;
   private invaders;
+  private divGraph : React.RefObject<HTMLDivElement>;
 
   constructor(props: any) {
     super(props);
     this.LoadGraph = this.LoadGraph.bind(this);
+    this.divGraph = React.createRef();
   }
 
   componentDidMount() {
@@ -137,7 +138,7 @@ class GameCanvas extends Component<Props> {
   }
 
   LoadGraph() {
-    const container = ReactDOM.findDOMNode(this.refs.divGraph) as HTMLElement;
+    const container = this.divGraph.current;
 
     // Checks if the browser is supported
     if (!mxClient.isBrowserSupported()) {
@@ -201,7 +202,7 @@ class GameCanvas extends Component<Props> {
   render() {
     return (
       <div className="graph-container">
-        <div ref="divGraph" id="divGraph" style={style}/>
+        <div ref={this.divGraph} style={style}/>
       </div>
     )
   }

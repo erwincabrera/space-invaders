@@ -17,6 +17,7 @@ export const HighScores: React.FC<Props> = (props) => {
       <div className='high-scores-container'>
         <Table 
           rows={props.scores.map((eachScore, i) => ({
+              key: eachScore.username,
               left: `${i + 1}. ${eachScore.username}`,
               right: <span className="score">{eachScore.score}</span>
           }))}

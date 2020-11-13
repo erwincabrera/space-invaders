@@ -15,6 +15,7 @@ export const ControlsTable: React.FC<Props> = (props) => {
     <Table
       title="Controls"
       rows={props.keys.map(eachKey => ({
+        key: eachKey.key,
         left: <span className="movement-key">{eachKey.key}</span>,
         right: eachKey.description
       }))}
