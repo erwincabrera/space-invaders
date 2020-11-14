@@ -52,7 +52,7 @@ const App = () => {
   useEffect(() => {
     if (isGameOver(state)) {
       if (scores.length === 0) {
-        axios.get(`http://localhost:3001/users`).then(res => {
+        axios.get(`/api/users`).then(res => {
         setScores(res.data);
       })
       }
