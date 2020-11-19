@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch db.json -p3001"
+    "server": "json-server --watch db.json -p3001 --routes routes.json"
   },
   "eslintConfig": {
     "extends": "react-app"
