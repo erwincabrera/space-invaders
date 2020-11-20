@@ -1,211 +1,98 @@
-import React, { Component } from "react";
-import * as GraphModule from "mxgraph/javascript/dist/build";
+import React, { useEffect } from 'react'
 import { State } from "./types";
 import * as Constants from "./Constants";
-import { dx, dy } from "./Geometry";
 
-const myGraph = new GraphModule({
-  mxImageBasePath: "mxgraph/javascript/src/images",
-  mxBasePath: "mxgraph/javascript/src",
-});
+type Props = State
 
-const mxGraph = myGraph.mxGraph;
-const mxClient = myGraph.mxClient;
-const mxUtils = myGraph.mxUtils;
-const mxEvent = myGraph.mxEvent;
-const mxShape = myGraph.mxShape;
-const mxCellRenderer = myGraph.mxCellRenderer;
+const GameCanvas: React.FC<Props> = (props) => {
+    const canvas = React.useRef<HTMLCanvasElement>()
 
-const style = {
-  margin: "0 auto",
-  width: Constants.WIDTH, 
-  height: Constants.HEIGHT
-}
+    useEffect(() => {
+        const current = canvas.current;
+        
+        if (current.getContext) {
+            let ctx: CanvasRenderingContext2D = current.getContext('2d')
 
-type Props = State;
+            ctx.clearRect(0, 0, current.width, current.height)
+            
+            // Draw player
+            const { pos, width, height } = props.player.geo;
+            ctx.save();
+            ctx.translate(pos.x, pos.y)
+            ctx.lineWidth = 6
+            ctx.strokeStyle = 'gray'
+            ctx.lineCap = 'round'
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, height);
+            ctx.moveTo(width, 0);
+            ctx.lineTo(width, height);
+            ctx.stroke();
 
-function Player() {
-  mxShape.call(this);
-};
+            let centerX = width / 2;
+            let centerY = height / 2;
 
-mxUtils.extend(Player, mxShape);
+            ctx.fillStyle = 'gray'
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, width / 2, height / 2, 0, 0, 2*Math.PI)
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            ctx.fill();
+            ctx.stroke();
+            
 
-Player.prototype.paintBackground = function(c, x, y, w, h) {
-  c.translate(x, y);
-  c.setStrokeColor('gray');
+            const gradient = ctx.createLinearGradient(centerX, centerY - height / 2, centerX, centerY + height / 2)
+            gradient.addColorStop(0, 'white');
+            gradient.addColorStop(1, 'gray');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, width / 4.8, height / 4, 0, 0, 2*Math.PI)
+            ctx.fill();
+            ctx.restore();
 
-  c.begin();
-  c.setStrokeWidth(5);
-  c.moveTo(0, 0);
-  c.lineTo(0, h);
-  c.moveTo(w, 0);
-  c.lineTo(w, h);
-  c.stroke();
+            // Draw shots
+            props.shots.forEach(eachShot => {
+                const { x, y } = eachShot.geo.pos;
+                const { width, height } = eachShot.geo;
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = 'purple';
+                ctx.fillStyle = 'violet';
+                ctx.beginPath();
+                ctx.ellipse(width/2, height/2, width/2, height/2, 0, 0, 2*Math.PI);
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            })
 
-  c.ellipse(0, 0, w, h);
-  c.setFillColor('gray');
-  c.setStrokeWidth(1);
-  c.setStrokeColor('black')
-  c.fillAndStroke();
+            // Draw invaders
+            props.invaders.forEach(eachInvader => {
+                const { x, y } = eachInvader.geo.pos;
+                const { width, height } = eachInvader.geo;
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.fillStyle = 'gray';
+                ctx.beginPath();
+                ctx.ellipse(width/2, height/2, width/2, height/2, 0, 0, 2*Math.PI);
+                ctx.fill();
+                ctx.restore();
+            })
+        }
+    }, [props.invaders, props.player.geo, props.shots])
 
-  const bridgeWidth = w / 2.4;
-  const bridgeHeight = h / 2;
-  const bridgeX = w / 2 - bridgeWidth / 2;
-  const bridgeY = h / 2 - bridgeHeight / 2;
-  c.ellipse(bridgeX, bridgeY, bridgeWidth, bridgeHeight);
-  c.setGradient('white', 'gray', bridgeX, bridgeY, bridgeWidth, bridgeHeight);
-  c.setStrokeColor('gray');
-  c.fillAndStroke();
-};
-
-mxCellRenderer.registerShape('player', Player);
-
-function Shot() {
-  mxShape.call(this);
-};
-
-mxUtils.extend(Shot, mxShape);
-
-Shot.prototype.paintBackground = function(c, x, y, w, h) {
-  c.translate(x, y);
-  c.ellipse(0, 0, w, h);
-  c.setStrokeWidth(3);
-  c.setStrokeColor('purple');
-  c.setFillColor('violet');
-  c.fillAndStroke();
-}
-
-mxCellRenderer.registerShape('shot', Shot);
-
-function Invader() {
-  mxShape.call(this);
-};
-
-mxUtils.extend(Invader, mxShape);
-
-Invader.prototype.paintBackground = function(c, x, y, w, h) {
-  c.translate(x, y);
-  c.ellipse(0, 0, w, h);
-  c.setFillColor('gray');
-  c.setStrokeColor('gray');
-  c.fillAndStroke();
-}
-
-mxCellRenderer.registerShape('invader', Invader);
-
-class GameCanvas extends Component<Props> {
-  private graph;
-  private player;
-  private shots;
-  private invaders;
-  private divGraph : React.RefObject<HTMLDivElement>;
-
-  constructor(props: any) {
-    super(props);
-    this.LoadGraph = this.LoadGraph.bind(this);
-    this.divGraph = React.createRef();
-  }
-
-  componentDidMount() {
-    this.LoadGraph();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    const graph = this.getGraph();
-    const parent = graph.getDefaultParent();
-
-    graph.moveCells(
-      [this.getPlayer()], 
-      dx(prevProps.player.geo.pos, this.props.player.geo.pos), 
-      dy(prevProps.player.geo.pos, this.props.player.geo.pos)
-    );
-
-    // TODO: move the cells
-    graph.removeCells(this.getShots());
-    this.shots = [];
-    this.props.shots.forEach(eachShot => {
-      this.shots.push(graph.insertVertex(parent, null, "", eachShot.geo.pos.x, eachShot.geo.pos.y, 
-        Constants.SHOT_WIDTH, Constants.SHOT_HEIGHT, 'shape=shot'));
-    })
-
-    // TODO: move the cells
-    graph.removeCells(this.getInvaders())
-    this.invaders = [];
-    this.props.invaders.forEach(eachInvader => {
-      this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.geo.pos.x, eachInvader.geo.pos.y, 
-        eachInvader.geo.width, eachInvader.geo.height, 'shape=invader'))
-    })
-  }
-
-  LoadGraph() {
-    const container = this.divGraph.current;
-
-    // Checks if the browser is supported
-    if (!mxClient.isBrowserSupported()) {
-      // Displays an error message if the browser is not supported.
-      mxUtils.error("Browser is not supported!", 200, false);
-    } else {
-
-      // Disables the built-in context menu
-      mxEvent.disableContextMenu(container);
-
-      // Creates the graph inside the given container
-      const graph = new mxGraph(container);
-      this.graph = graph;
-
-      // Gets the default parent for inserting new cells. This is normally the first
-      // child of the root (ie. layer 0).
-      var parent = graph.getDefaultParent();
-
-      graph.setEnabled(false);
-
-      graph.getModel().beginUpdate();
-      try {
-        const { pos, width, height } = this.props.player.geo;
-        this.player = graph.insertVertex(parent, null, null, pos.x, pos.y, width, height, 'shape=player;');
-
-        this.shots = [];
-
-        this.invaders = [];
-        this.props.invaders.forEach(eachInvader => {
-          this.invaders.push(graph.insertVertex(parent, null, "", eachInvader.geo.pos.x, eachInvader.geo.pos.y, 
-            eachInvader.geo.width, eachInvader.geo.height))
-        })
-
-      } finally {
-        // Updates the display
-        graph.getModel().endUpdate();
-      }
-    }
-  }
-
-  private getPlayer() {
-    if (!this.player) throw new Error("Uninitialized player");
-    return this.player;
-  }
-
-  private getGraph() {
-    if (!this.graph) throw new Error("Uninitialized graph");
-    return this.graph;
-  }
-
-  private getShots() {
-    if (!this.shots) throw new Error("Uninitialzed shots");
-    return this.shots;
-  }
-
-  private getInvaders() {
-    if (!this.invaders) throw new Error("Uninitialized invaders");
-    return this.invaders;
-  }
-
-  render() {
     return (
-      <div className="graph-container">
-        <div ref={this.divGraph} style={style}/>
-      </div>
+        <div className="graph-container">
+            <canvas 
+                ref={canvas}  
+                style={{margin: '0 auto', display: 'block'}} 
+                width={Constants.WIDTH} 
+                height={Constants.HEIGHT}
+            >
+                This browser is not supported.
+            </canvas>
+        </div>
     )
-  }
 }
 
-export default GameCanvas;
+export default GameCanvas
