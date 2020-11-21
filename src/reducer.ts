@@ -11,8 +11,8 @@ export const initialState: State = {
       width: 75,
       height: 75,
       pos: {
-        x: 100,
-        y: 100
+        x: Constants.WIDTH * 0.4,
+        y: Constants.HEIGHT * 0.8
       },
     },
     cooldown: 0
