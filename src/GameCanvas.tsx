@@ -6,17 +6,25 @@ type Props = State
 
 const GameCanvas: React.FC<Props> = (props) => {
     const canvas = React.useRef<HTMLCanvasElement>()
+    const prevPropsRef = React.useRef<Props>();
+    const prevTimeRef = React.useRef<number>();
+    
+    useEffect(() => {
+        prevPropsRef.current = props;
+    })
 
     useEffect(() => {
         const current = canvas.current;
-        
-        if (current.getContext) {
+
+        if (!current.getContext) return;
+
+        const draw = () => {
             let ctx: CanvasRenderingContext2D = current.getContext('2d')
 
             ctx.clearRect(0, 0, current.width, current.height)
             
             // Draw player
-            const { pos, width, height } = props.player.geo;
+            const { pos, width, height } = prevPropsRef.current.player.geo;
             ctx.save();
             ctx.translate(pos.x, pos.y)
             ctx.lineWidth = 6
@@ -39,7 +47,6 @@ const GameCanvas: React.FC<Props> = (props) => {
             ctx.lineWidth = 1;
             ctx.fill();
             ctx.stroke();
-            
 
             const gradient = ctx.createLinearGradient(centerX, centerY - height / 2, centerX, centerY + height / 2)
             gradient.addColorStop(0, 'white');
@@ -51,7 +58,7 @@ const GameCanvas: React.FC<Props> = (props) => {
             ctx.restore();
 
             // Draw shots
-            props.shots.forEach(eachShot => {
+            prevPropsRef.current.shots.forEach(eachShot => {
                 const { x, y } = eachShot.geo.pos;
                 const { width, height } = eachShot.geo;
                 ctx.save();
@@ -67,7 +74,7 @@ const GameCanvas: React.FC<Props> = (props) => {
             })
 
             // Draw invaders
-            props.invaders.forEach(eachInvader => {
+            prevPropsRef.current.invaders.forEach(eachInvader => {
                 const { x, y } = eachInvader.geo.pos;
                 const { width, height } = eachInvader.geo;
                 ctx.save();
@@ -79,7 +86,23 @@ const GameCanvas: React.FC<Props> = (props) => {
                 ctx.restore();
             })
         }
-    }, [props.invaders, props.player.geo, props.shots])
+
+        let animationId: number;
+        const render = (time) => {
+            // const dt = time - prevTimeRef.current;
+            // console.log(dt);
+        
+            animationId = window.requestAnimationFrame(render);
+            draw();
+            prevTimeRef.current = time;
+        }
+
+        render(0);
+
+        return () => {
+            window.cancelAnimationFrame(animationId);
+        };
+    }, [])
 
     return (
         <div className="graph-container">
