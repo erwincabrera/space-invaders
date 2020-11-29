@@ -52,9 +52,13 @@ const App = () => {
   useEffect(() => {
     if (isGameOver(state)) {
       if (scores.length === 0) {
-        axios.get(`/api/users`).then(res => {
-        setScores(res.data);
-      })
+        axios.get(`http://space-invaders-edc.herokuapp.com/api/users`)
+          .then(res => {
+            setScores(res.data);
+          })
+          .catch((e) => {
+            console.log('GET request failed.');
+          })
       }
     }
   })
