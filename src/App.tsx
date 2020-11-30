@@ -9,7 +9,7 @@ import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
 import { getRandom, isGameOver } from './helpers';
 import { EndScreen } from './components/EndScreen';
-import axios from 'axios';
+import scoresService from './services/scores';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
@@ -52,13 +52,9 @@ const App = () => {
   useEffect(() => {
     if (isGameOver(state)) {
       if (scores.length === 0) {
-        axios.get(`https://space-invaders-edc.herokuapp.com/api/users`)
-          .then(res => {
-            setScores(res.data);
-          })
-          .catch((e) => {
-            console.log('GET request failed.');
-          })
+        scoresService.get()
+          .then(score => setScores(score))
+          .catch(err => console.log(err))
       }
     }
   })
