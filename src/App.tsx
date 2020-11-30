@@ -113,6 +113,13 @@ const App = () => {
 
   })
 
+  const handleNewGame = () => {
+    scoresService.get()
+      .then(score => setScores(score))
+      .catch(err => console.log(err));
+    dispatch(Actions.newGame());
+  }
+
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
@@ -120,7 +127,7 @@ const App = () => {
         ? <StartScreen handleStart={() => dispatch(Actions.start())} />
         : isGameOver(state)
         ? <EndScreen 
-            handleNewGame={() => dispatch(Actions.newGame())} 
+            handleNewGame={handleNewGame} 
             handleSave={() => 0 }
             playerScore={state.score}
             scores={scores}
