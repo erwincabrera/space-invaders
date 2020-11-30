@@ -50,14 +50,10 @@ const App = () => {
   }
 
   useEffect(() => {
-    if (isGameOver(state)) {
-      if (scores.length === 0) {
-        scoresService.get()
-          .then(score => setScores(score))
-          .catch(err => console.log(err))
-      }
-    }
-  })
+    scoresService.get()
+      .then(score => setScores(score))
+      .catch(err => console.log(err))
+  }, [])
 
   useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
