@@ -39,7 +39,7 @@ button:hover {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: black url("images/bg-start.jpg") center/cover no-repeat fixed;
+  background: black url("assets/images/bg-start.jpg") center/cover no-repeat fixed;
 }
 
 .panel {
@@ -95,5 +95,5 @@ button:hover {
 
 .graph-container {
   min-height: 100vh;
-  background: black url("images/bg-game.jpg") center/cover no-repeat fixed;
+  background: black url("assets/images/bg-game.jpg") center/cover no-repeat fixed;
 }

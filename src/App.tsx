@@ -12,8 +12,8 @@ import { EndScreen } from './components/EndScreen';
 import axios from 'axios';
 
 const audioMap: Record<Sounds, any> = {
-  photonTorpedos: require('./audio/photon-torpedos.mp3'),
-  invaderDeath: require('./audio/invader-death.mp3'),
+  photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
+  invaderDeath: require('./assets/audio/invader-death.mp3'),
 };
 
 const getRandomInvader = (): Invader => {
