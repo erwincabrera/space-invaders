@@ -15,7 +15,7 @@ export const EndScreen: React.FC<Props> = (props) => {
         <h2>Your score: {props.playerScore}</h2>
         <section className="buttons">
           <button onClick={props.handleNewGame}>New Game</button>
-          <button>Save</button>
+          <button onClick={props.handleSave}>Save</button>
         </section>
         <HighScores scores={props.scores} />
       </section>

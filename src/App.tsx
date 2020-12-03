@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { FormEvent, useEffect, useReducer, useState } from 'react';
 import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
@@ -10,6 +10,7 @@ import { StartScreen } from './components/StartScreen';
 import { getRandom, isGameOver } from './helpers';
 import { EndScreen } from './components/EndScreen';
 import scoresService from './services/scores';
+import { LoginForm } from './components/LoginForm';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
@@ -43,6 +44,9 @@ const isKeyDown = {}
 
 const App = () => {
   const [scores, setScores] = useState([]);
+  const [showLogin, setShowLogin] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState);
   const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
     invaderDeath: React.useRef(),
@@ -120,15 +124,34 @@ const App = () => {
     dispatch(Actions.newGame());
   }
 
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setUsername('');
+    setPassword('');
+  }
+
+  const loginForm = (): JSX.Element => {
+    return (
+      <LoginForm 
+        username={username}
+        onChangeUsername={(e) => setUsername(e.target.value)}
+        password={password}
+        onChangePassword={(e) => setPassword(e.target.value)}
+        handleLogin={handleLogin}
+      />
+    )
+  }
+
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
+      {showLogin && loginForm()}
       {state.isStarted === false
         ? <StartScreen handleStart={() => dispatch(Actions.start())} />
         : isGameOver(state)
         ? <EndScreen 
             handleNewGame={handleNewGame} 
-            handleSave={() => 0 }
+            handleSave={() => setShowLogin(true)}
             playerScore={state.score}
             scores={scores}
           />
