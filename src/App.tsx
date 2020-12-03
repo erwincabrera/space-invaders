@@ -151,20 +151,28 @@ const App = () => {
     )
   }
 
+  const startScreen = (): JSX.Element => {
+    return <StartScreen handleStart={() => dispatch(Actions.start())} />;
+  }
+
+  const endScreen = (): JSX.Element => {
+    return (
+      <EndScreen 
+        handleNewGame={handleNewGame} 
+        handleSave={() => setShowLogin(true)}
+        playerScore={state.score}
+        scores={scores}
+      />
+    )
+  }
+
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
       {showLogin && !user && loginForm()}
-      {state.isStarted === false
-        ? <StartScreen handleStart={() => dispatch(Actions.start())} />
-        : isGameOver(state)
-        ? <EndScreen 
-            handleNewGame={handleNewGame} 
-            handleSave={() => setShowLogin(true)}
-            playerScore={state.score}
-            scores={scores}
-          />
-        : <GameCanvas {...state}></GameCanvas>}
+      {!state.isStarted && startScreen()}
+      {state.isStarted && isGameOver(state) && endScreen()}
+      {state.isStarted && !isGameOver(state) && <GameCanvas {...state}></GameCanvas>}
     </div>
   )
 }
