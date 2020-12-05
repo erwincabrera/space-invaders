@@ -14,6 +14,12 @@ interface Score {
   score: number;
 }
 
+let token = null;
+
+const setToken =(newToken) => {
+  token = `bearer ${newToken}`;
+}
+
 const get = async (): Promise<Score[]> => {
   const res = await axios.get<ScoreAPI[]>(BASE_URL);
   
@@ -23,6 +29,15 @@ const get = async (): Promise<Score[]> => {
   }));
 };
 
+const create = async (newObject): Promise<any> => {
+  const config = {
+    headers: { Authorization: token }
+  };
+
+  const res = await axios.post(BASE_URL, newObject, config);
+  return res.data;
+}
+
 export default {
-  get
+  setToken, get, create
 };

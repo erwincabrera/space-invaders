@@ -35,3 +35,8 @@ export interface State {
   invaders: Invader[]
 }
 
+export interface LoginResponse {
+  name: string;
+  username: string;
+  token: string;
+}

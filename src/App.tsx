@@ -3,7 +3,7 @@ import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
-import { Invader, Sounds } from './types';
+import { Invader, LoginResponse, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
@@ -48,7 +48,7 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState<LoginResponse>(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
     invaderDeath: React.useRef(),
@@ -130,10 +130,12 @@ const App = () => {
     e.preventDefault();
 
     try {
-      const user = await loginService.login({ username, password });
+      const user = await loginService.login<LoginResponse>({ username, password });
       setUser(user);
       setUsername('');
       setPassword('');
+      scoresService.setToken(user.token);
+      
     } catch(e) {
       alert('Wrong credentials');
     }
