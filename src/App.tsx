@@ -1,16 +1,16 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import * as Constants from './Constants';
 import * as Actions from './Actions';
-import GameCanvas from './GameCanvas';
+import GameView from './components/GameView';
 import { initialState, reducer } from './reducer';
 import { Invader, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
-import { StartScreen } from './components/StartScreen';
+import { StartView } from './components/start/StartView';
 import { getRandom, isGameOver } from './helpers';
-import { EndScreen } from './components/EndScreen';
+import { EndView } from './components/end/EndView';
 import scoresService from './services/scores';
-import { Login } from './components/Login';
+import { LoginView } from './components/login/LoginView';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
@@ -123,12 +123,12 @@ const App = () => {
   }
 
   const startScreen = (): JSX.Element => {
-    return <StartScreen handleStart={() => dispatch(Actions.start())} />;
+    return <StartView handleStart={() => dispatch(Actions.start())} />;
   }
 
   const endScreen = (): JSX.Element => {
     return (
-      <EndScreen 
+      <EndView 
         handleNewGame={handleNewGame} 
         handleSave={() => setShowLogin(true)}
         playerScore={state.score}
@@ -140,10 +140,10 @@ const App = () => {
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
-      {showLogin && <Login />}
+      {showLogin && <LoginView />}
       {!state.isStarted && startScreen()}
       {state.isStarted && isGameOver(state) && endScreen()}
-      {state.isStarted && !isGameOver(state) && <GameCanvas {...state}></GameCanvas>}
+      {state.isStarted && !isGameOver(state) && <GameView {...state}></GameView>}
     </div>
   )
 }

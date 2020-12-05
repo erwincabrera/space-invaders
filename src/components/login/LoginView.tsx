@@ -1,10 +1,10 @@
 import React, { FormEvent, useState } from 'react'
-import { LoginResponse } from '../types';
-import loginService from '../services/login';
-import scoresService from '../services/scores';
+import { LoginResponse } from '../../types';
+import loginService from '../../services/login';
+import scoresService from '../../services/scores';
 import { LoginForm } from './LoginForm';
 
-export const Login: React.FC = (props) => {
+export const LoginView: React.FC = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState<LoginResponse>(null);

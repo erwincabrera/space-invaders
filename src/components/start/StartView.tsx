@@ -1,7 +1,7 @@
 import React from 'react'
 import { ControlsTable } from './ControlsTable'
 
-export const StartScreen = ({ handleStart }) => {
+export const StartView = ({ handleStart }) => {
   return (
     <div className='screen start-screen'>
       <section className='panel panel-start'>

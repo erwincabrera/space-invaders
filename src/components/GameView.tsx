@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { State } from "./types";
-import * as Constants from "./Constants";
+import { State } from "../types";
+import * as Constants from "../Constants";
 
 type Props = State
 
-const GameCanvas: React.FC<Props> = (props) => {
+const GameView: React.FC<Props> = (props) => {
     const canvas = React.useRef<HTMLCanvasElement>()
     const prevPropsRef = React.useRef<Props>();
     const prevTimeRef = React.useRef<number>();
@@ -118,4 +118,4 @@ const GameCanvas: React.FC<Props> = (props) => {
     )
 }
 
-export default GameCanvas
+export default GameView

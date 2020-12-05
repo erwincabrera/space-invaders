@@ -7,7 +7,7 @@ interface Props extends HighScoreProps {
   playerScore: number;
 }
 
-export const EndScreen: React.FC<Props> = (props) => {
+export const EndView: React.FC<Props> = (props) => {
   return (
     <div className='screen end-screen'>
       <section className="panel panel-end">
