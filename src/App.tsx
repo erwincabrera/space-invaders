@@ -44,7 +44,6 @@ const isKeyDown = {}
 
 const App = () => {
   const [scores, setScores] = useState([]);
-  const [showLogin, setShowLogin] = useState(false);
   const [state, dispatch] = useReducer(reducer, initialState);
   const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
     invaderDeath: React.useRef(),
@@ -110,40 +109,65 @@ const App = () => {
     })
 
     if (isGameOver(state)) {
-      audioRefs.invaderDeath.current.play()
+      audioRefs.invaderDeath.current.play();
     }
-
   })
+
+  const handleStartGame = () => {
+    dispatch(Actions.start());
+  }
 
   const handleNewGame = () => {
     scoresService.get()
       .then(score => setScores(score))
       .catch(err => console.log(err));
     dispatch(Actions.newGame());
+  };
+
+  const handleSave = () => {
+    // TODO
   }
 
-  const startScreen = (): JSX.Element => {
-    return <StartView handleStart={() => dispatch(Actions.start())} />;
-  }
+  const startView = (): JSX.Element => (
+    <StartView handleStart={handleStartGame} />
+  );
 
-  const endScreen = (): JSX.Element => {
-    return (
+  const gameView = (): JSX.Element => (
+    <GameView {...state}></GameView>
+  );
+
+  const endView = (): JSX.Element => (
       <EndView 
         handleNewGame={handleNewGame} 
-        handleSave={() => setShowLogin(true)}
+        handleSave={handleSave}
         playerScore={state.score}
         scores={scores}
       />
-    )
+  )
+
+  const loginView = (): JSX.Element => (
+    <LoginView />
+  )
+
+  const getView = (): JSX.Element => {
+    switch (state.view) {
+      case "Start":
+        return startView();
+      case "Game":
+        return gameView();
+      case "End":
+        return endView();
+      case "Login":
+        return loginView();
+      default:
+        return <div>Error!</div>
+    }
   }
 
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
-      {showLogin && <LoginView />}
-      {!state.isStarted && startScreen()}
-      {state.isStarted && isGameOver(state) && endScreen()}
-      {state.isStarted && !isGameOver(state) && <GameView {...state}></GameView>}
+      {getView()}
     </div>
   )
 }

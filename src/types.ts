@@ -27,7 +27,10 @@ export interface Shot {
   geo: Geometry;
 }
 
+export type View = "Start" | "Game" | "End" | "Login";
+
 export interface State {
+  view: View;
   isStarted: boolean;
   player: Player,
   score: number;

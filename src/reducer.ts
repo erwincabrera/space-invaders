@@ -4,6 +4,7 @@ import { isGameOver, isHit } from "./helpers";
 import { isWithinBounds } from "./Geometry";
 
 export const initialState: State = {
+  view: "Start",
   isStarted: false,
   score: 0,
   player: {
@@ -129,11 +130,11 @@ const addInvader = (state: State, action: Action<Invader>): State => {
 
 export const reducer = (state: State, action: Action<any>): State => {
   if (action.type === 'START') {
-    return {...state, isStarted: true}
+    return {...state, isStarted: true, view: "Game"}
   }
 
   if (action.type === 'NEW_GAME') {
-    return {...initialState, isStarted: true}
+    return {...initialState, isStarted: true, view: "Game"}
   }
   
   if (state.isStarted === false) {
@@ -141,6 +142,12 @@ export const reducer = (state: State, action: Action<any>): State => {
   }
 
   if (isGameOver(state)) {
+    if (state.view !== "End") {
+      return {
+        ...state,
+        view: "End"
+      }
+    }
     return state;
   }
 
