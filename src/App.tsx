@@ -1,17 +1,16 @@
-import React, { FormEvent, useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameCanvas from './GameCanvas';
 import { initialState, reducer } from './reducer';
-import { Invader, LoginResponse, Sounds } from './types';
+import { Invader, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartScreen } from './components/StartScreen';
 import { getRandom, isGameOver } from './helpers';
 import { EndScreen } from './components/EndScreen';
 import scoresService from './services/scores';
-import loginService from './services/login';
-import { LoginForm } from './components/LoginForm';
+import { Login } from './components/Login';
 
 const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
@@ -46,9 +45,6 @@ const isKeyDown = {}
 const App = () => {
   const [scores, setScores] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [user, setUser] = useState<LoginResponse>(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
     invaderDeath: React.useRef(),
@@ -126,33 +122,6 @@ const App = () => {
     dispatch(Actions.newGame());
   }
 
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const user = await loginService.login<LoginResponse>({ username, password });
-      setUser(user);
-      setUsername('');
-      setPassword('');
-      scoresService.setToken(user.token);
-      
-    } catch(e) {
-      alert('Wrong credentials');
-    }
-  }
-
-  const loginForm = (): JSX.Element => {
-    return (
-      <LoginForm 
-        username={username}
-        onChangeUsername={(e) => setUsername(e.target.value)}
-        password={password}
-        onChangePassword={(e) => setPassword(e.target.value)}
-        handleLogin={handleLogin}
-      />
-    )
-  }
-
   const startScreen = (): JSX.Element => {
     return <StartScreen handleStart={() => dispatch(Actions.start())} />;
   }
@@ -171,7 +140,7 @@ const App = () => {
   return (
     <div>
       {Object.keys(audioMap).map(name => <Sound key={name} ref={audioRefs[name]} audio={audioMap[name]} />)}
-      {showLogin && !user && loginForm()}
+      {showLogin && <Login />}
       {!state.isStarted && startScreen()}
       {state.isStarted && isGameOver(state) && endScreen()}
       {state.isStarted && !isGameOver(state) && <GameCanvas {...state}></GameCanvas>}
