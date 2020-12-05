@@ -4,6 +4,7 @@ import * as Actions from './Actions'
 import * as Constants from './Constants'
 
 test('updates on tick', () => {
+  const invaderHeight = 20;
   const state: State = {
     view: "Game",
     isStarted: true,
@@ -11,9 +12,9 @@ test('updates on tick', () => {
     invaders: [
       {
         geo: {
-          height: 20,
+          height: invaderHeight,
           width: 20,
-          pos: { x: 50, y: 500 - Constants.INVADER_DY},
+          pos: { x: 50, y: 500 - invaderHeight - Constants.INVADER_DY },
         },
         hp: 1,
         score: 1
@@ -45,7 +46,7 @@ test('updates on tick', () => {
         geo: {
           height: 20,
           width: 20,
-          pos: { x: 50, y: 500},
+          pos: { x: 50, y: 500 - invaderHeight},
         },
         hp: 1,
         score: 1
@@ -383,7 +384,7 @@ test('hit logic - distance too large', () => {
         geo: {
           height: invaderHeight,
           width: 20,
-          pos: { x: 50, y: 500 + Constants.INVADER_DY + 0.5},
+          pos: { x: 50, y: 500 - invaderHeight + Constants.INVADER_DY + 0.5},
         },
         hp: 1,
         score: 1
@@ -415,7 +416,7 @@ test('hit logic - distance too large', () => {
         geo: {
           height: invaderHeight,
           width: 20,
-          pos: { x: 50, y: 500 + 2*Constants.INVADER_DY + 0.5},
+          pos: { x: 50, y: 500 - invaderHeight + 2*Constants.INVADER_DY + 0.5},
         },
         hp: 1,
         score: 1
