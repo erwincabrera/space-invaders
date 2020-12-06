@@ -63,6 +63,8 @@ const App = () => {
 
   useEffect(() => {
     const update = () => {
+      if (!state.isStarted) return;
+
       dispatch(Actions.tick())
       
       if (isKeyDown[Constants.KEYS.MOVEMENT.UP]) dispatch(Actions.moveUp())
@@ -78,7 +80,7 @@ const App = () => {
 
     const tickId = setInterval(() => ReactDOM.unstable_batchedUpdates(update) ,Constants.TICK_MS);
     return () => clearInterval(tickId)
-  }, [])
+  }, [state.isStarted])
 
   useEffect(() => {
     if (state.isStarted) {
