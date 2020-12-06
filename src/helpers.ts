@@ -1,5 +1,5 @@
 import { isOverlapping } from "./Geometry";
-import { Invader, Shot, State } from "./types";
+import { Invader, State } from "./types";
 import * as Constants from './Constants';
 
 export const getRandom = (min: number, max: number): number => {
@@ -22,10 +22,6 @@ export const getRandomInvader = (): Invader => {
     hp: 1,
     score: 1
   }
-}
-
-export const isHit = (invader: Invader, shot: Shot): boolean => {
-  return isOverlapping(invader.geo, shot.geo);
 }
 
 export const isGameOver = (state: State): boolean => {

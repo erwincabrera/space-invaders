@@ -1,7 +1,7 @@
 import { Action, Invader, MovePayload, State, Shot } from "./types"
 import * as Constants from './Constants'
-import { isGameOver, isHit } from "./helpers";
-import { isWithinBounds } from "./Geometry";
+import { isGameOver } from "./helpers";
+import { isOverlapping, isWithinBounds } from "./Geometry";
 
 export const initialState: State = {
   view: "Start",
@@ -93,8 +93,13 @@ const tick = (state: State, action: Action<any>): State => {
     }
   }
 
-  const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader, eachShot));
-  const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
+  const invaderHit = (invader: Invader) => (
+    state.shots.some(eachShot => isOverlapping(invader.geo, eachShot.geo))
+  );
+
+  const shotHit = (shot: Shot) => (
+    state.invaders.some(eachInvader => isOverlapping(eachInvader.geo, shot.geo))
+  );
 
   const newHp = (invader: Invader) => 
     invader.hp > 0 && invaderHit(invader)
