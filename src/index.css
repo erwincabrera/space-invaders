@@ -49,6 +49,24 @@ button:hover {
   padding: 1em;
 }
 
+label {
+  display: block;
+  font-size: 1.3rem;
+}
+
+form {
+  text-align: left;
+}
+
+input {
+  font-family: inherit;
+  font-size: 1.2rem;
+}
+
+hr {
+  margin: 1.5em 0;
+}
+
 /* || Start screen */
 
 .movement-key {
@@ -80,4 +98,11 @@ button:hover {
 .graph-container {
   min-height: 100vh;
   background: black url("assets/images/bg-game.jpg") center/cover no-repeat fixed;
+}
+
+
+/* || Login screen */
+
+.form-input {
+  margin-bottom: 0.5em;
 }

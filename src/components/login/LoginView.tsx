@@ -3,6 +3,7 @@ import { LoginResponse } from '../../types';
 import loginService from '../../services/login';
 import scoresService from '../../services/scores';
 import { LoginForm } from './LoginForm';
+import { Panel } from '../Panel';
 
 interface Props {
   onLogin: (user: LoginResponse) => void;
@@ -27,12 +28,16 @@ export const LoginView: React.FC<Props> = (props) => {
   }
 
   return (
-    <LoginForm 
-      username={username}
-      onChangeUsername={(e) => setUsername(e.target.value)}
-      password={password}
-      onChangePassword={(e) => setPassword(e.target.value)}
-      handleLogin={handleLogin}
-    />
+    <div className='screen'>
+      <Panel width='auto'>
+        <LoginForm 
+          username={username}
+          onChangeUsername={(e) => setUsername(e.target.value)}
+          password={password}
+          onChangePassword={(e) => setPassword(e.target.value)}
+          handleLogin={handleLogin}
+        />
+      </Panel>
+    </div>
   )
 }
