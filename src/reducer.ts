@@ -1,6 +1,5 @@
 import { Action, Invader, MovePayload, State, Shot } from "./types"
 import * as Constants from './Constants'
-import { isGameOver } from "./helpers";
 import { isOverlapping, isWithinBounds } from "./Geometry";
 
 export const initialState: State = {
@@ -85,7 +84,7 @@ const fire = (state: State, action: Action<any>): State => {
 const tick = (state: State, action: Action<any>): State => {
   if (state.isStarted === false) return state;
 
-  if (isGameOver(state)) {
+  if (state.player.hp <= 0) {
     return {
       ...state,
       view: "End",
@@ -100,6 +99,17 @@ const tick = (state: State, action: Action<any>): State => {
   const shotHit = (shot: Shot) => (
     state.invaders.some(eachInvader => isOverlapping(eachInvader.geo, shot.geo))
   );
+
+  const playerHit = (): boolean => {
+    return state.invaders
+      .map(eachInvader => eachInvader.geo)
+      .some(eachInvaderGeo => isOverlapping(state.player.geo, eachInvaderGeo))
+  }
+
+  const newPlayerHp = (): number => {
+    const { hp } = state.player;
+    return hp > 0 && playerHit() ? hp - 1 : hp
+  }
 
   const newHp = (invader: Invader) => 
     invader.hp > 0 && invaderHit(invader)
@@ -126,6 +136,7 @@ const tick = (state: State, action: Action<any>): State => {
     player: {
       ...state.player,
       cooldown: state.player.cooldown - 1,
+      hp: newPlayerHp()
     },
     score: state.score + newInvaders.reduce((acc, curr) => acc + (curr.hp === 0 ? curr.score : 0), 0),
     shots: state.shots

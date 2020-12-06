@@ -7,7 +7,7 @@ import { LoginResponse, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartView } from './components/start/StartView';
-import { getRandomInvader, isGameOver } from './helpers';
+import { getRandomInvader } from './helpers';
 import { EndView } from './components/end/EndView';
 import scoresService from './services/scores';
 import { LoginView } from './components/login/LoginView';
@@ -92,7 +92,7 @@ const App = () => {
         }
       })
   
-      if (isGameOver(state)) {
+      if (state.player.hp <= 0) {
         audioRefs.invaderDeath.current.play();
       }
     }
