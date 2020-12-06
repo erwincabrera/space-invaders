@@ -3,11 +3,11 @@ import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameView from './components/GameView';
 import { initialState, reducer } from './reducer';
-import { Invader, Sounds } from './types';
+import { Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartView } from './components/start/StartView';
-import { getRandom, isGameOver } from './helpers';
+import { getRandomInvader, isGameOver } from './helpers';
 import { EndView } from './components/end/EndView';
 import scoresService from './services/scores';
 import { LoginView } from './components/login/LoginView';
@@ -16,24 +16,6 @@ const audioMap: Record<Sounds, any> = {
   photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
   invaderDeath: require('./assets/audio/invader-death.mp3'),
 };
-
-const getRandomInvader = (): Invader => {
-  const width = 20;
-  const height = 20;
-
-  return {
-    geo: {
-      pos: {
-        x: getRandom(0 + width / 2, Constants.WIDTH - width / 2),
-        y: 0
-      },
-      width,
-      height
-    },
-    hp: 1,
-    score: 1
-  }
-}
 
 const KEY_LIST = Object.values(Constants.KEYS).reduce((acc, curr) => 
   Object.values(acc).concat(Object.values(curr)), 
