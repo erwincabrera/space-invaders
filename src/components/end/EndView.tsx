@@ -11,7 +11,7 @@ interface Props extends HighScoreProps {
 
 export const EndView: React.FC<Props> = (props) => {
   return (
-    <div className='screen end-screen'>
+    <div className='screen'>
       <Panel width='40em'>
         <h1 style={{'marginTop': 0}}>Game Over</h1>
         <h2>Your score: {props.playerScore}</h2>

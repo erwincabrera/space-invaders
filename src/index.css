@@ -39,6 +39,8 @@ button:hover {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: black url("assets/images/bg-start.jpg") center/cover no-repeat fixed;
 }
 
@@ -49,11 +51,6 @@ button:hover {
 
 /* || Start screen */
 
-.start-screen {
-  justify-content: center;
-  align-items: center;
-}
-
 .movement-key {
   border: 1px solid white;
   padding: .25em;
@@ -61,11 +58,6 @@ button:hover {
 
 
 /* || End screen */
-
-.end-screen {
-  justify-content: center;
-  align-items: center;
-}
 
 .high-scores-container {
   margin-top: 1em;

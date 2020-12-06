@@ -4,7 +4,7 @@ import { ControlsTable } from './ControlsTable'
 
 export const StartView = ({ handleStart }) => {
   return (
-    <div className='screen start-screen'>
+    <div className='screen'>
       <Panel width='22em'>
         <ControlsTable keys={[
             {
