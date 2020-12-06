@@ -81,18 +81,20 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (state.player.cooldown === Constants.SHOT_COOLDOWN) {
-      audioRefs.photonTorpedos.current.play()
-    }
-
-    state.invaders.forEach(eachInvader => {
-      if (eachInvader.hp <= 0) {
-        audioRefs.invaderDeath.current.play()
+    if (state.isStarted) {
+      if (state.player.cooldown === Constants.SHOT_COOLDOWN) {
+        audioRefs.photonTorpedos.current.play()
       }
-    })
-
-    if (isGameOver(state)) {
-      audioRefs.invaderDeath.current.play();
+  
+      state.invaders.forEach(eachInvader => {
+        if (eachInvader.hp <= 0) {
+          audioRefs.invaderDeath.current.play()
+        }
+      })
+  
+      if (isGameOver(state)) {
+        audioRefs.invaderDeath.current.play();
+      }
     }
   })
 
