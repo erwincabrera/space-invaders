@@ -3,7 +3,7 @@ import * as Constants from './Constants';
 import * as Actions from './Actions';
 import GameView from './components/GameView';
 import { initialState, reducer } from './reducer';
-import { Sounds } from './types';
+import { LoginResponse, Sounds } from './types';
 import ReactDOM from 'react-dom';
 import { SoundRef, Sound } from './components/Sound';
 import { StartView } from './components/start/StartView';
@@ -26,6 +26,7 @@ const isKeyDown = {}
 
 const App = () => {
   const [scores, setScores] = useState([]);
+  const [user, setUser] = useState<LoginResponse>(null);
   const [state, dispatch] = useReducer(reducer, initialState);
   const audioRefs: Record<Sounds, React.MutableRefObject<SoundRef>> = {
     invaderDeath: React.useRef(),
@@ -128,7 +129,7 @@ const App = () => {
   )
 
   const loginView = (): JSX.Element => (
-    <LoginView />
+    <LoginView onLogin={(user) => setUser(user)}/>
   )
 
   const getView = (): JSX.Element => {
