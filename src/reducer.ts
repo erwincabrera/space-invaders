@@ -22,6 +22,14 @@ export const initialState: State = {
   invaders: []
 };
 
+const start = (state: State): State => {
+    return {...state, isStarted: true, view: "Game"}
+}
+
+const newGame = (state: State): State => {
+  return {...initialState, isStarted: true, view: "Game"}
+}
+
 const move = (state: State, action: Action<MovePayload>): State => {
   const player = state.player;
   const newGeo = {
@@ -74,6 +82,16 @@ const fire = (state: State, action: Action<any>): State => {
 }
 
 const tick = (state: State, action: Action<any>): State => {
+  if (state.isStarted === false) return state;
+
+  if (isGameOver(state)) {
+    return {
+      ...state,
+      view: "End",
+      isStarted: false
+    }
+  }
+
   const invaderHit = (invader: Invader) => state.shots.some(eachShot => isHit(invader, eachShot));
   const shotHit = (shot: Shot) => state.invaders.some(eachInvader => isHit(eachInvader, shot));
 
@@ -129,29 +147,11 @@ const addInvader = (state: State, action: Action<Invader>): State => {
 }
 
 export const reducer = (state: State, action: Action<any>): State => {
-  if (action.type === 'START') {
-    return {...state, isStarted: true, view: "Game"}
-  }
-
-  if (action.type === 'NEW_GAME') {
-    return {...initialState, isStarted: true, view: "Game"}
-  }
-  
-  if (state.isStarted === false) {
-    return state;
-  }
-
-  if (isGameOver(state)) {
-    if (state.view !== "End") {
-      return {
-        ...state,
-        view: "End"
-      }
-    }
-    return state;
-  }
-
   switch (action.type) {
+    case 'START':
+      return start(state)
+    case 'NEW_GAME':
+      return newGame(state)
     case 'MOVE':
       return move(state, action)
     case 'FIRE':
