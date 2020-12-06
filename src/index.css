@@ -78,7 +78,7 @@ button:hover {
 .high-scores-container {
   margin-top: 1em;
   padding-right: 1em;
-  height: 45vh;
+  height: 250px;
   overflow-y: auto;
 }
 
