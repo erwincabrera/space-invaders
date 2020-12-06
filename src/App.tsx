@@ -111,10 +111,6 @@ const App = () => {
     dispatch(Actions.newGame());
   };
 
-  const handleSave = () => {
-    // TODO
-  }
-
   const startView = (): JSX.Element => (
     <StartView handleStart={handleStartGame} />
   );
@@ -126,7 +122,8 @@ const App = () => {
   const endView = (): JSX.Element => (
       <EndView 
         handleNewGame={handleNewGame} 
-        handleSave={handleSave}
+        handleLogin={() => dispatch(Actions.login())}
+        username={user?.name}
         playerScore={state.score}
         scores={scores}
       />

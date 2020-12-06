@@ -75,3 +75,10 @@ export const newGame = (): Action<any> => {
     payload: {}
   }
 }
+
+export const login = (): Action<any> => {
+  return {
+    type: 'LOGIN',
+    payload: {}
+  }
+}

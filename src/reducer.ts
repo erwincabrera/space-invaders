@@ -163,6 +163,13 @@ const addInvader = (state: State, action: Action<Invader>): State => {
   }
 }
 
+const login = (state: State): State => {
+  return {
+    ...state,
+    view: "Login"
+  }
+}
+
 export const reducer = (state: State, action: Action<any>): State => {
   switch (action.type) {
     case 'START':
@@ -177,6 +184,8 @@ export const reducer = (state: State, action: Action<any>): State => {
       return tick(state, action)
     case 'ADD_INVADER':
       return addInvader(state, action)
+    case 'LOGIN':
+      return login(state)
     default:
       return initialState;
   }
