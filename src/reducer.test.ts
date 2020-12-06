@@ -31,6 +31,7 @@ test('updates on tick', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -97,6 +98,7 @@ test('hit logic', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -158,6 +160,7 @@ test('hit logic - just toucing invader lower left', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -219,6 +222,7 @@ test('hit logic - just toucing invader lower right', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -280,6 +284,7 @@ test('hit logic - just toucing invader upper left edge case', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -341,6 +346,7 @@ test('hit logic - just toucing invader upper right edge case', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -401,6 +407,7 @@ test('hit logic - distance too large', () => {
     ],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,
@@ -460,6 +467,7 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
     shots: [],
     player: {
       cooldown: 10,
+      hp: 1,
       geo: {
         height: 50,
         width: 50,

@@ -16,7 +16,8 @@ export const initialState: State = {
         y: Constants.HEIGHT * 0.8
       },
     },
-    cooldown: 0
+    cooldown: 0,
+    hp: 1
   },
   shots: [],
   invaders: []

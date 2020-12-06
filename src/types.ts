@@ -15,6 +15,7 @@ export interface MovePayload {
 export interface Player {
   geo: Geometry;
   cooldown: number;
+  hp: number;
 }
 
 export interface Invader {
