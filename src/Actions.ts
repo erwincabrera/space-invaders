@@ -1,10 +1,9 @@
 import { Action, Invader, MovePayload } from "./types";
 import * as Constants from "./Constants";
 
-export const start = (): Action<any> => {
+export const start = (): Action => {
   return {
-    type: 'START',
-    payload: {}
+    type: 'START'
   }
 }
 
@@ -50,15 +49,13 @@ export const moveRight = (): Action<MovePayload> => {
 
 export const fire = (): Action<any> => {
   return {
-    type: 'FIRE',
-    payload: {}
+    type: 'FIRE'
   }
 }
 
 export const tick = (): Action<any> => {
   return {
-    type: 'TICK',
-    payload: {}
+    type: 'TICK'
   }
 }
 
@@ -71,14 +68,12 @@ export const addInvader = (invader: Invader): Action<Invader> => {
 
 export const newGame = (): Action<any> => {
   return {
-    type: 'NEW_GAME',
-    payload: {}
+    type: 'NEW_GAME'
   }
 }
 
 export const login = (): Action<any> => {
   return {
-    type: 'LOGIN',
-    payload: {}
+    type: 'LOGIN'
   }
 }

@@ -2,9 +2,9 @@ import { Geometry } from "./Geometry";
 
 export type Sounds = "photonTorpedos" | "invaderDeath"
 
-export interface Action<T> {
+export interface Action<T=any> {
   type: string;
-  payload: T;
+  payload?: T;
 }
 
 export interface MovePayload {
