@@ -100,6 +100,15 @@ const App = () => {
     }
   })
 
+  useEffect(() => {
+    const loggedInUser = window.localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+      const user: LoginResponse = JSON.parse(loggedInUser);
+      setUser(user);
+      scoresService.setToken(user.token);
+    }
+  }, []);
+
   const handleStartGame = () => {
     dispatch(Actions.start());
   }
