@@ -72,12 +72,6 @@ export const newGame = (): Action<any> => {
   }
 }
 
-export const login = (): Action<any> => {
-  return {
-    type: 'LOGIN'
-  }
-}
-
 export const setView = (view: View): Action<View> => {
   return {
     type: 'SET_VIEW',

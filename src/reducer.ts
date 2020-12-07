@@ -163,13 +163,6 @@ const addInvader = (state: State, action: Action<Invader>): State => {
   }
 }
 
-const login = (state: State): State => {
-  return {
-    ...state,
-    view: "Login"
-  }
-}
-
 const setView = (state: State, action: Action<View>): State => {
   return {
     ...state,
@@ -191,8 +184,6 @@ export const reducer = (state: State, action: Action<any>): State => {
       return tick(state, action)
     case 'ADD_INVADER':
       return addInvader(state, action)
-    case 'LOGIN':
-      return login(state)
     case 'SET_VIEW':
       return setView(state, action)
     default:

@@ -137,7 +137,7 @@ const App = () => {
   const endView = (): JSX.Element => (
       <EndView 
         handleNewGame={handleNewGame} 
-        handleLogin={() => dispatch(Actions.login())}
+        handleLogin={() => dispatch(Actions.setView("Login"))}
         username={user?.name}
         playerScore={state.score}
         scores={scores}
