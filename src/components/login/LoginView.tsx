@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react'
 import { LoginResponse } from '../../types';
 import loginService from '../../services/login';
+import userService from '../../services/users';
 import { LoginForm } from './LoginForm';
 import { Panel } from '../Panel';
 
@@ -11,10 +12,22 @@ interface Props {
 export const LoginView: React.FC<Props> = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
   
-  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!isLogin) {
+      try {
+        await userService.newUser({
+          username,
+          password
+        });
+      } catch(e) {
+        alert('Failed to create new account')
+      }
+    }
+    
     try {
       const user = await loginService.login<LoginResponse>({ username, password });
       setUsername('');
@@ -25,6 +38,12 @@ export const LoginView: React.FC<Props> = (props) => {
     }
   }
 
+  const handleToggleLogin = () => {
+    setIsLogin(!isLogin);
+    setUsername('');
+    setPassword('');
+  }
+
   return (
     <div className='screen'>
       <Panel width='auto'>
@@ -33,7 +52,9 @@ export const LoginView: React.FC<Props> = (props) => {
           onChangeUsername={(e) => setUsername(e.target.value)}
           password={password}
           onChangePassword={(e) => setPassword(e.target.value)}
-          handleLogin={handleLogin}
+          handleSubmit={handleSubmit}
+          isLogin={isLogin}
+          onToggleLogin={handleToggleLogin}
         />
       </Panel>
     </div>
