@@ -130,6 +130,7 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem('loggedInUser');
     setUser(null);
+    scoresService.setToken(null);
     dispatch(Actions.initialize());
   }
 
