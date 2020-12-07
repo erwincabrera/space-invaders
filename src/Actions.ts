@@ -1,4 +1,4 @@
-import { Action, Invader, MovePayload } from "./types";
+import { Action, Invader, MovePayload, View } from "./types";
 import * as Constants from "./Constants";
 
 export const start = (): Action => {
@@ -75,5 +75,12 @@ export const newGame = (): Action<any> => {
 export const login = (): Action<any> => {
   return {
     type: 'LOGIN'
+  }
+}
+
+export const setView = (view: View): Action<View> => {
+  return {
+    type: 'SET_VIEW',
+    payload: view
   }
 }

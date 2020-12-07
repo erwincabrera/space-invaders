@@ -1,4 +1,4 @@
-import { Action, Invader, MovePayload, State, Shot } from "./types"
+import { Action, Invader, MovePayload, State, Shot, View } from "./types"
 import * as Constants from './Constants'
 import { isOverlapping, isWithinBounds } from "./Geometry";
 
@@ -170,6 +170,13 @@ const login = (state: State): State => {
   }
 }
 
+const setView = (state: State, action: Action<View>): State => {
+  return {
+    ...state,
+    view: action.payload
+  }
+}
+
 export const reducer = (state: State, action: Action<any>): State => {
   switch (action.type) {
     case 'START':
@@ -186,6 +193,8 @@ export const reducer = (state: State, action: Action<any>): State => {
       return addInvader(state, action)
     case 'LOGIN':
       return login(state)
+    case 'SET_VIEW':
+      return setView(state, action)
     default:
       return initialState;
   }
