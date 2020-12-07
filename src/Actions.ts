@@ -78,3 +78,9 @@ export const setView = (view: View): Action<View> => {
     payload: view
   }
 }
+
+export const initialize = (): Action => {
+  return {
+    type: 'INITIALIZE'
+  }
+}

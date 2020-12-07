@@ -172,6 +172,8 @@ const setView = (state: State, action: Action<View>): State => {
 
 export const reducer = (state: State, action: Action<any>): State => {
   switch (action.type) {
+    case 'INITIALIZE':
+      return initialState;
     case 'START':
       return start(state)
     case 'NEW_GAME':
