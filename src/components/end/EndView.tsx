@@ -17,6 +17,7 @@ export const EndView: React.FC<Props> = (props) => {
         <h1 style={{'marginTop': 0}}>Game Over</h1>
         <h2>Your score: {props.playerScore}</h2>
         {!props.username && <p>Login to save your score.</p>}
+        {props.username && <p>{`Logged in  as ${props.username}`}</p>}
         <section className="buttons">
           <button onClick={props.handleNewGame}>New Game</button>
           {!props.username && <button onClick={props.handleLogin}>Login</button>}

@@ -163,7 +163,7 @@ const App = () => {
         handleNewGame={handleNewGame} 
         handleLogin={() => dispatch(Actions.setView("Login"))}
         handleLogout={handleLogout}
-        username={user?.name}
+        username={user?.username}
         playerScore={state.score}
         scores={scores}
       />
