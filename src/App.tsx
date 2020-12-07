@@ -111,6 +111,12 @@ const App = () => {
     dispatch(Actions.newGame());
   };
 
+  const handleLogin = (user: LoginResponse) => {
+    setUser(user);
+    scoresService.setToken(user.token);
+    window.localStorage.setItem('loggedInUser', JSON.stringify(user));
+  }
+
   const startView = (): JSX.Element => (
     <StartView handleStart={handleStartGame} />
   );
@@ -130,7 +136,7 @@ const App = () => {
   )
 
   const loginView = (): JSX.Element => (
-    <LoginView onLogin={(user) => setUser(user)}/>
+    <LoginView onLogin={handleLogin}/>
   )
 
   const getView = (): JSX.Element => {
