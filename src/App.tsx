@@ -40,6 +40,22 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+    if (user && state.view === "End") {
+      const saveScoreAndUpdateScores = async () => {
+        await scoresService.create({
+          score: state.score
+        });
+  
+        const scores = await scoresService.get();
+        setScores(scores);
+      }
+  
+      saveScoreAndUpdateScores();
+    }
+    
+  }, [user, state.score, state.view])
+
+  useEffect(() => {
     const handleKeyup = (e: KeyboardEvent) => {
       if (KEY_LIST.indexOf(e.key) !== -1) {
         isKeyDown[e.key] = false
