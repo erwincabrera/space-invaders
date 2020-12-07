@@ -124,6 +124,13 @@ const App = () => {
     setUser(user);
     scoresService.setToken(user.token);
     window.localStorage.setItem('loggedInUser', JSON.stringify(user));
+    dispatch(Actions.setView("End"));
+  }
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedInUser');
+    setUser(null);
+    dispatch(Actions.initialize());
   }
 
   const startView = (): JSX.Element => (
@@ -138,6 +145,7 @@ const App = () => {
       <EndView 
         handleNewGame={handleNewGame} 
         handleLogin={() => dispatch(Actions.setView("Login"))}
+        handleLogout={handleLogout}
         username={user?.name}
         playerScore={state.score}
         scores={scores}

@@ -5,6 +5,7 @@ import { HighScores, Props as HighScoreProps } from './HighScores'
 interface Props extends HighScoreProps {
   handleNewGame: () => void;
   handleLogin: () => void;
+  handleLogout: () =>  void;
   playerScore: number;
   username: string;
 }
@@ -19,6 +20,7 @@ export const EndView: React.FC<Props> = (props) => {
         <section className="buttons">
           <button onClick={props.handleNewGame}>New Game</button>
           {!props.username && <button onClick={props.handleLogin}>Login</button>}
+          {props.username && <button onClick={props.handleLogout}>Logout</button>}
         </section>
         <HighScores scores={props.scores} />
       </Panel>
