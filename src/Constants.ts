@@ -1,6 +1,6 @@
 export const SHOTS_PER_SEC = 3;
-export const HEIGHT = 600;
-export const WIDTH = 1024;
+export const HEIGHT = window.innerHeight;
+export const WIDTH = window.innerWidth;
 export const TICK_MS = 15;
 export const SHOT_COOLDOWN = 1000 / (TICK_MS * SHOTS_PER_SEC);
 export const DX = 400 * TICK_MS / 1000;
