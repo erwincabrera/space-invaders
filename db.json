@@ -79,5 +79,19 @@
       "username": "user20",
       "score": 5
     }
+  ],
+  "scores": [
+    {
+      "user": {
+        "username": "user1"
+      },
+      "score": 1
+    },
+    {
+      "user": {
+        "username": "user2"
+      },
+      "score": 2
+    }
   ]
 }
