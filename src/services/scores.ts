@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://space-invaders-edc.herokuapp.com/api/scores";
+const BASE_URL = "/api/scores";
 
 interface ScoreAPI {
   score: number;
