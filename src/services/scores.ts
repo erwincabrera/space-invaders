@@ -38,6 +38,8 @@ const create = async (newObject): Promise<any> => {
   return res.data;
 }
 
-export default {
+const Scores = {
   setToken, get, create
 };
+
+export default Scores

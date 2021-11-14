@@ -13,8 +13,8 @@ import scoresService from './services/scores';
 import { LoginView } from './components/login/LoginView';
 
 const audioMap: Record<Sounds, any> = {
-  photonTorpedos: require('./assets/audio/photon-torpedos.mp3'),
-  invaderDeath: require('./assets/audio/invader-death.mp3'),
+  photonTorpedos: `${process.env.PUBLIC_URL}/audio/photon-torpedos.mp3`,
+  invaderDeath: `${process.env.PUBLIC_URL}/audio/invader-death.mp3`,
 };
 
 const KEY_LIST = Object.values(Constants.KEYS).reduce((acc, curr) => 

@@ -7,6 +7,8 @@ const login = async <T>(credentials): Promise<T> => {
     return res.data;
 }
 
-export default {
+const Login = {
     login
 }
+
+export default Login;

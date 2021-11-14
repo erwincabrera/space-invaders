@@ -7,6 +7,8 @@ const newUser = async (newObject) => {
     return res.data;
 }
 
-export default {
+const Users = {
     newUser
-}
+};
+
+export default Users
