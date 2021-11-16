@@ -1,8 +1,8 @@
 import { Geometry } from "./Geometry";
 
-export type Sounds = "photonTorpedos" | "invaderDeath"
+export type Sounds = "photonTorpedos" | "invaderDeath";
 
-export interface Action<T=any> {
+export interface Action<T = any> {
   type: string;
   payload?: T;
 }
@@ -33,10 +33,10 @@ export type View = "Start" | "Game" | "End" | "Login";
 export interface State {
   view: View;
   isStarted: boolean;
-  player: Player,
+  player: Player;
   score: number;
-  shots: Shot[],
-  invaders: Invader[]
+  shots: Shot[];
+  invaders: Invader[];
 }
 
 export interface LoginResponse {

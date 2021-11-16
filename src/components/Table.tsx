@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 interface Row {
   key: string;
@@ -13,14 +13,14 @@ interface Props {
 
 export const Table: React.FC<Props> = (props) => {
   return (
-    <table style={{ width: '100%' }}>
+    <table style={{ width: "100%" }}>
       <thead>
         <tr>
           <th colSpan={2}>{props.title}</th>
         </tr>
       </thead>
       <tbody>
-        {props.rows.map(eachRow => (
+        {props.rows.map((eachRow) => (
           <tr key={eachRow.key}>
             <td style={{ textAlign: "left" }}>{eachRow.left}</td>
             <td style={{ textAlign: "right" }}>{eachRow.right}</td>
@@ -28,5 +28,5 @@ export const Table: React.FC<Props> = (props) => {
         ))}
       </tbody>
     </table>
-  )
-}
+  );
+};

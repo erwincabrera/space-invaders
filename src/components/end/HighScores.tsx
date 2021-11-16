@@ -1,5 +1,5 @@
-import React from 'react'
-import { Table } from '../Table'
+import React from "react";
+import { Table } from "../Table";
 
 interface Score {
   username: string;
@@ -14,16 +14,15 @@ export const HighScores: React.FC<Props> = (props) => {
   return (
     <>
       <h1>High Scores</h1>
-      <div className='high-scores-container'>
-        <Table 
+      <div className="high-scores-container">
+        <Table
           rows={props.scores.map((eachScore, i) => ({
-              key: eachScore.username,
-              left: `${i + 1}. ${eachScore.username}`,
-              right: <span className="score">{eachScore.score}</span>
+            key: eachScore.username,
+            left: `${i + 1}. ${eachScore.username}`,
+            right: <span className="score">{eachScore.score}</span>,
           }))}
         />
       </div>
     </>
-  )
-}
-
+  );
+};

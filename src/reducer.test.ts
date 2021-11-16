@@ -1,9 +1,9 @@
-import { reducer } from './reducer'
-import { State } from './types'
-import * as Actions from './Actions'
-import * as Constants from './Constants'
+import { reducer } from "./reducer";
+import { State } from "./types";
+import * as Actions from "./Actions";
+import * as Constants from "./Constants";
 
-test('updates on tick', () => {
+test("updates on tick", () => {
   const invaderHeight = 20;
   const state: State = {
     view: "Game",
@@ -17,17 +17,17 @@ test('updates on tick', () => {
           pos: { x: 50, y: 500 - invaderHeight - Constants.INVADER_DY },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
           pos: { x: 50, y: 500 + Constants.SHOT_DY },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -35,9 +35,9 @@ test('updates on tick', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -47,31 +47,31 @@ test('updates on tick', () => {
         geo: {
           height: 20,
           width: 20,
-          pos: { x: 50, y: 500 - invaderHeight},
+          pos: { x: 50, y: 500 - invaderHeight },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
           pos: { x: 50, y: 500 },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       ...state.player,
       cooldown: 9,
-    }
-  }
+    },
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic', () => {
+test("hit logic", () => {
   const state: State = {
     view: "Game",
     isStarted: true,
@@ -84,17 +84,17 @@ test('hit logic', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 1,
-        score: 2
-      }
+        score: 2,
+      },
     ],
     shots: [
       {
         geo: {
           pos: { x: 50, y: 500 },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -102,9 +102,9 @@ test('hit logic', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -117,21 +117,21 @@ test('hit logic', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 0,
-        score: 2
-      }
+        score: 2,
+      },
     ],
     shots: [],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: state.score + 2
-  }
+    score: state.score + 2,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic - just toucing invader lower left', () => {
+test("hit logic - just toucing invader lower left", () => {
   const invaderHeight = 20;
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
@@ -146,17 +146,17 @@ test('hit logic - just toucing invader lower left', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
           pos: { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -164,9 +164,9 @@ test('hit logic - just toucing invader lower left', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -179,21 +179,21 @@ test('hit logic - just toucing invader lower left', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 0,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: 1
-  }
+    score: 1,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic - just toucing invader lower right', () => {
+test("hit logic - just toucing invader lower right", () => {
   const invaderHeight = 20;
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
@@ -208,17 +208,17 @@ test('hit logic - just toucing invader lower right', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
           pos: { x: 50 + invaderWidth, y: 500 + invaderHeight },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -226,9 +226,9 @@ test('hit logic - just toucing invader lower right', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -241,21 +241,21 @@ test('hit logic - just toucing invader lower right', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 0,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: 1
-  }
+    score: 1,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic - just toucing invader upper left edge case', () => {
+test("hit logic - just toucing invader upper left edge case", () => {
   const invaderHeight = 20;
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
@@ -267,20 +267,23 @@ test('hit logic - just toucing invader upper left edge case', () => {
         geo: {
           height: invaderHeight,
           width: invaderWidth,
-          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+          pos: { x: 50, y: 500 + Constants.INVADER_DY },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
-          pos: { x: 50 - Constants.SHOT_WIDTH, y: 500 + invaderHeight - Constants.SHOT_DY },
+          pos: {
+            x: 50 - Constants.SHOT_WIDTH,
+            y: 500 + invaderHeight - Constants.SHOT_DY,
+          },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -288,9 +291,9 @@ test('hit logic - just toucing invader upper left edge case', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -300,24 +303,24 @@ test('hit logic - just toucing invader upper left edge case', () => {
         geo: {
           height: invaderHeight,
           width: invaderWidth,
-          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+          pos: { x: 50, y: 500 + Constants.INVADER_DY },
         },
         hp: 0,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: 1
-  }
+    score: 1,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic - just toucing invader upper right edge case', () => {
+test("hit logic - just toucing invader upper right edge case", () => {
   const invaderHeight = 20;
   const invaderWidth = Constants.SHOT_WIDTH - 1;
   const state: State = {
@@ -329,20 +332,23 @@ test('hit logic - just toucing invader upper right edge case', () => {
         geo: {
           height: invaderHeight,
           width: invaderWidth,
-          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+          pos: { x: 50, y: 500 + Constants.INVADER_DY },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
-          pos: { x: 50 + invaderWidth, y: 500 + invaderHeight - Constants.SHOT_DY },
+          pos: {
+            x: 50 + invaderWidth,
+            y: 500 + invaderHeight - Constants.SHOT_DY,
+          },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -350,9 +356,9 @@ test('hit logic - just toucing invader upper right edge case', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -362,24 +368,24 @@ test('hit logic - just toucing invader upper right edge case', () => {
         geo: {
           height: invaderHeight,
           width: invaderWidth,
-          pos: { x: 50, y: 500 + Constants.INVADER_DY},
+          pos: { x: 50, y: 500 + Constants.INVADER_DY },
         },
         hp: 0,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: 1
-  }
+    score: 1,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic - distance too large', () => {
+test("hit logic - distance too large", () => {
   const invaderHeight = 20;
   const state: State = {
     view: "Game",
@@ -390,20 +396,20 @@ test('hit logic - distance too large', () => {
         geo: {
           height: invaderHeight,
           width: 20,
-          pos: { x: 50, y: 500 - invaderHeight + Constants.INVADER_DY + 0.5},
+          pos: { x: 50, y: 500 - invaderHeight + Constants.INVADER_DY + 0.5 },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
           pos: { x: 50, y: 500 + invaderHeight - Constants.SHOT_DY },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       cooldown: 10,
@@ -411,9 +417,9 @@ test('hit logic - distance too large', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -423,32 +429,35 @@ test('hit logic - distance too large', () => {
         geo: {
           height: invaderHeight,
           width: 20,
-          pos: { x: 50, y: 500 - invaderHeight + 2*Constants.INVADER_DY + 0.5},
+          pos: {
+            x: 50,
+            y: 500 - invaderHeight + 2 * Constants.INVADER_DY + 0.5,
+          },
         },
         hp: 1,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [
       {
         geo: {
-          pos: { x: 50, y: 500 + invaderHeight - 2*Constants.SHOT_DY },
+          pos: { x: 50, y: 500 + invaderHeight - 2 * Constants.SHOT_DY },
           height: Constants.SHOT_HEIGHT,
-          width: Constants.SHOT_WIDTH
-        }
-      }
+          width: Constants.SHOT_WIDTH,
+        },
+      },
     ],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: 0
-  }
+    score: 0,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
 
-test('hit logic - when HP is 0, destroy on next tick', () => {
+test("hit logic - when HP is 0, destroy on next tick", () => {
   const state: State = {
     view: "Game",
     isStarted: true,
@@ -461,8 +470,8 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
           pos: { x: 50, y: 500 },
         },
         hp: 0,
-        score: 1
-      }
+        score: 1,
+      },
     ],
     shots: [],
     player: {
@@ -471,9 +480,9 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
       geo: {
         height: 50,
         width: 50,
-        pos: { x: 50, y: 1000 }
-      }
-    }
+        pos: { x: 50, y: 1000 },
+      },
+    },
   };
 
   const expected: State = {
@@ -482,10 +491,10 @@ test('hit logic - when HP is 0, destroy on next tick', () => {
     shots: [],
     player: {
       ...state.player,
-      cooldown: 9
+      cooldown: 9,
     },
-    score: 0
-  }
+    score: 0,
+  };
 
-  expect(reducer(state, Actions.tick())).toEqual(expected)
-})
+  expect(reducer(state, Actions.tick())).toEqual(expected);
+});
