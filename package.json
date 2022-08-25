@@ -28,9 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server --watch ./json-server/db.json -p3001 --routes ./json-server/routes.json",
-    "tar": "tar -cvf ./deploy.tar --exclude='*.map' ./captain-definition ./nginx/* ./build/*",
-    "deploy": "yarn tar && caprover deploy -t ./deploy.tar"
+    "server": "json-server --watch ./json-server/db.json -p3001 --routes ./json-server/routes.json"
   },
   "browserslist": {
     "production": [
