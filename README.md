@@ -34,4 +34,4 @@ Run `yarn test --coverage --watchAll=false` to generate the code coverage report
 
 ## Deployment
 
-TODO
+The project is currently deployed at https://spaceinvaders.xyz. Whenever a pull request to the main branch is merged, the changes will automatically be deployed via a GitHub Actions workflow. 
