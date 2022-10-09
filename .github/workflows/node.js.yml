@@ -27,7 +27,8 @@ jobs:
     - run: yarn --frozen-lockfile
     - run: yarn build
     - run: yarn test
-    - uses: a7ul/tar-action@v1.1.0
+    - if: ${{ github.ref_name == 'main' && github.event_name == 'push' }}
+      uses: a7ul/tar-action@v1.1.0
       with:
         command: c
         cwd: "./"
@@ -36,7 +37,8 @@ jobs:
           nginx/
           captain-definition
         outPath: deploy.tar
-    - name: Deploy App to CapRover
+    - if: ${{ github.ref_name == 'main' && github.event_name == 'push' }}
+      name: Deploy App to CapRover
       uses: caprover/deploy-from-github@v1.0.1
       with:
         server: '${{ secrets.CAPROVER_SERVER }}'
