@@ -1,6 +1,6 @@
 # Reference: https://caprover.com/docs/ci-cd-integration/deploy-from-github.html
 
-name: Node.js CI
+name: CI/CD Pipeline
 
 on:
   push:
