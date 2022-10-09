@@ -1,6 +1,6 @@
 # Space Invaders
 
-![Node.js CI](https://github.com/erwincabrera/space-invaders/workflows/Node.js%20CI/badge.svg)
+[![CI/CD Pipeline](https://github.com/erwincabrera/space-invaders/actions/workflows/pipeline.yml/badge.svg)](https://github.com/erwincabrera/space-invaders/actions/workflows/pipeline.yml)
 
 [Live Demo](https://spaceinvaders.xyz)
 
