@@ -21,7 +21,9 @@ const setToken = (newToken) => {
 };
 
 const get = async (): Promise<Score[]> => {
-  const res = await axios.get<ScoreAPI[]>(BASE_URL);
+  const res = await axios.get<ScoreAPI[]>(BASE_URL, {
+    params: { summary: "T" },
+  });
 
   return res.data.map((eachScore) => ({
     username: eachScore.user.username,
