@@ -1,0 +1,16 @@
+name: Health Check
+
+on:
+  schedule:
+    - cron: "20 4 * * *"
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request scores
+        uses: jtalk/url-health-check-action@61a0e49fff5cde3773b0bbe069d4ebbd04d24f07
+        with:
+          url: https://spaceinvaders.xyz
+          max-attempts: 3
+          retry-delay: 5s
