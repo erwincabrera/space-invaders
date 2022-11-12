@@ -1,16 +1,17 @@
 # Space Invaders
 
-[![CI/CD Pipeline](https://github.com/erwincabrera/space-invaders/actions/workflows/pipeline.yml/badge.svg)](https://github.com/erwincabrera/space-invaders/actions/workflows/pipeline.yml)
+[![Pipeline](https://github.com/erwincabrera/space-invaders/actions/workflows/pipeline.yml/badge.svg)](https://github.com/erwincabrera/space-invaders/actions/workflows/pipeline.yml)
+[![Health Check](https://github.com/erwincabrera/space-invaders/actions/workflows/health.yml/badge.svg)](https://github.com/erwincabrera/space-invaders/actions/workflows/health.yml)
 
 [Live Demo](https://spaceinvaders.xyz)
 
-A full stack app based on the classic _Space Invaders_ game. Features audio, user login and logout, and a high scores database.  
+A full stack app based on the classic _Space Invaders_ game. Features audio, user login and logout, and a high scores database.
 
 This repository contains the frontend code. The repository for the backend can be found [here](https://github.com/erwincabrera/space-invaders-backend).
 
 ## Gameplay
 
-- Click the `Start` button to start playing. 
+- Click the `Start` button to start playing.
 - The `WASD` keys can be used for moving your spaceship. Press the `spacebar` to fire photon torpedoes.
 - Earn scores by destroying the invaders.
 - The game ends when your spaceship collides with an invader.
@@ -34,4 +35,4 @@ Run `yarn test --coverage --watchAll=false` to generate the code coverage report
 
 ## Deployment
 
-The project is currently deployed at https://spaceinvaders.xyz. Whenever a pull request to the main branch is merged, the changes will automatically be deployed via a GitHub Actions workflow. 
+The project is currently deployed at https://spaceinvaders.xyz. Whenever a pull request to the main branch is merged, the changes will automatically be deployed via a GitHub Actions workflow.
