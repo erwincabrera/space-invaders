@@ -14,7 +14,7 @@
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "typescript": "~3.7.2"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint . ",
     "eject": "react-scripts eject",
     "server": "json-server --watch ./json-server/db.json -p3001 --routes ./json-server/routes.json",
     "tar": "tar -cvf ./deploy.tar --exclude='*.map' ./captain-definition ./nginx/* ./build/*",
